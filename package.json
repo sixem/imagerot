@@ -1,0 +1,22 @@
+{
+  "name": "imagerot",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "build:ts": "npx tsc",
+    "build:webpack": "webpack --mode production",
+    "build": "npm run build:ts && npm run build:webpack",
+    "prepack": "npm run build"
+  },
+  "keywords": [],
+  "author": "emy",
+  "license": "GPL 3.0",
+  "main": "./lib/imagerot/index.js",
+  "types": "./lib/imagerot/index.d.ts",
+  "devDependencies": {
+    "ts-loader": "^9.4.4",
+    "typescript": "^5.1.6",
+    "webpack": "^5.88.1",
+    "webpack-cli": "^5.1.4"
+  }
+}
