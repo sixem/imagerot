@@ -4,7 +4,7 @@
   "description": "",
   "scripts": {
     "build:ts": "npx tsc",
-    "build:webpack": "webpack --mode production",
+    "build:webpack": "webpack --mode development",
     "build": "npm run build:ts && npm run build:webpack",
     "prepack": "npm run build"
   },
