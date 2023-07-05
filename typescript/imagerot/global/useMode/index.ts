@@ -1,8 +1,10 @@
-import { IBufferHandlerParams } from '../../../types';
+import { IBufferHandlerParams, TEffectItem } from '../../../types';
 import { applyMode } from '../applyMode';
 import * as modes from '../../../modes';
 
-const useMode = async ({ data, width, height }: IBufferHandlerParams, mode: string | string[]) => {
+const useMode = async ({ data, width, height }: IBufferHandlerParams, effectPool: {
+    [key: string]: TEffectItem
+}, mode: string | string[]) => {
     const modesToUse = (!Array.isArray(mode) ? [mode] : mode);
 
     for(let _mode of modesToUse) {
@@ -10,7 +12,7 @@ const useMode = async ({ data, width, height }: IBufferHandlerParams, mode: stri
             throw new Error('Invalid mode');
         }
 
-        const applied = await applyMode({ data, width, height, mode: _mode });
+        const applied = await applyMode({ data, width, height, effectPool, mode: _mode });
         [data, width, height] = [applied.data, applied.width, applied.height];
     }
     

@@ -1,13 +1,15 @@
-import { IEffectHandler, TEffectOptions, IBufferHandlerParams } from '../../../types';
-import * as effects from '../../../effects';
+import { TEffectItem, TEffectOptions, IBufferHandlerParams } from '../../../types';
 
 type TApplyEffectHandler = (params: IBufferHandlerParams & {
+    effectPool: {
+        [key: string]: TEffectItem
+    };
     effect: string;
     options?: TEffectOptions;
 }) => Promise<IBufferHandlerParams>;
 
-const getEffect = (effect: string): IEffectHandler | null => {
-    for(let [key, value] of Object.entries(effects)) {
+const getEffect = (effectPool: { [key: string]: TEffectItem }, effect: string): TEffectItem | null => {
+    for(let [key, value] of Object.entries(effectPool)) {
         if(key === effect) {
             return value;
         }
@@ -15,10 +17,10 @@ const getEffect = (effect: string): IEffectHandler | null => {
     return null;
 };
 
-const applyEffect: TApplyEffectHandler = async ({ data, width, height, effect, options = null }) => {
+const applyEffect: TApplyEffectHandler = async ({ data, width, height, effectPool, effect, options = null }) => {
     return new Promise(async (resolve, reject) => {
         try {
-            const buffer = await (getEffect(effect) as IEffectHandler)({ data, width, height }, options);
+            const buffer = await (getEffect(effectPool, effect) as TEffectItem)({ data, width, height }, options);
 
             if(buffer)
             {
