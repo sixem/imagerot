@@ -1,7 +1,6 @@
 import { random, floor, min, max } from '../../constants/math';
 import { randomize } from '../../helpers';
-import { blur, rectangles } from '../../effects';
-import { TBufferHandler, IBufferHandlerParams } from '../../types';
+import { TMode, IBufferHandlerParams } from '../../types';
 
 const weight: [number, number] = [0.25, 0.5];
 
@@ -9,7 +8,7 @@ type TAlgorithmHandler = (params: IBufferHandlerParams & {
     weight?: [number, number];
 }) => Promise<Uint8Array>;
 
-const chimera: TBufferHandler = async ({ data, width, height }) =>
+const chimera: TMode = async ({ data, width, height, effects }) =>
 {
     const algorithm: TAlgorithmHandler = async ({ data, width, height, weight = [0.25, 0.5] }) =>
     {
@@ -35,7 +34,7 @@ const chimera: TBufferHandler = async ({ data, width, height }) =>
     const direction = random() >= 0.5 ? 'horizontal' : 'vertical';
     const intensity = randomize(5, 10);
 
-    data = await blur({ data, width, height }, { direction, intensity }) || data;
+    data = await effects?.blur({ data, width, height }, { direction, intensity }) || data;
     data = await algorithm({ data, width, height, weight });
 
     for (let index = 0; index < data.length; index += 4)
@@ -51,7 +50,7 @@ const chimera: TBufferHandler = async ({ data, width, height }) =>
         };
     }
 
-    data = await rectangles({ data, width, height }, { offset: 45, intensity: 20 }) || data;
+    data = await effects?.rectangles({ data, width, height }, { offset: 45, intensity: 20 }) || data;
 
     return data;
 };
