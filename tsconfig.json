@@ -12,5 +12,8 @@
   },
   "include": [
       "typescript/**/*"
+  ],
+  "exclude": [
+    "typescript/imagerot/browser/index.ts"
   ]
 }

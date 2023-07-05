@@ -1,7 +1,7 @@
 const path = require('path');
 
 module.exports = {
-    entry: './lib/imagerot/index.js',
+    entry: './typescript/imagerot/browser/index.ts',
     output: {
         filename: 'imagerot.js',
         path: path.resolve(__dirname, 'dist'),
@@ -11,7 +11,7 @@ module.exports = {
         umdNamedDefine: true
     },
     resolve: {
-        extensions: ['.ts', '.js'],
+        extensions: ['.ts', '.js']
     },
     module: {
         rules: [
@@ -21,5 +21,5 @@ module.exports = {
                 exclude: /node_modules/,
             },
         ],
-    },
+    }
 };
