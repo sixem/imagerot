@@ -4,19 +4,24 @@
   "description": "",
   "scripts": {
     "build:ts": "npx tsc",
-    "build:webpack": "webpack --mode development",
+    "build:webpack": "webpack --mode production",
     "build": "npm run build:ts && npm run build:webpack",
     "prepack": "npm run build"
   },
   "keywords": [],
   "author": "emy",
   "license": "GPL 3.0",
-  "main": "./lib/imagerot/index.js",
-  "types": "./lib/imagerot/index.d.ts",
+  "main": "./lib/imagerot/node/index.js",
+  "types": "./lib/imagerot/node/index.d.ts",
   "devDependencies": {
     "ts-loader": "^9.4.4",
     "typescript": "^5.1.6",
     "webpack": "^5.88.1",
     "webpack-cli": "^5.1.4"
+  },
+  "dependencies": {
+    "canvas": "^2.11.2",
+    "image-size": "^1.0.2",
+    "isomorphic-fetch": "^3.0.0"
   }
 }
