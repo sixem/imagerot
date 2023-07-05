@@ -1,5 +1,5 @@
 import { floor, random, min, max } from '../../constants/math';
-import { IEffectHandler } from '../../types';
+import { TEffectItem, TEffectExport } from '../../types';
 
 type TEffectOptions = {
     offset?: number;
@@ -9,7 +9,7 @@ type TEffectOptions = {
 const defaultOffset = 45;
 const defaultIntensity = 20;
 
-const rectangles: IEffectHandler = async ({ data, width, height }, options = null) => {
+const global: TEffectItem = async ({ data, width, height }, options = null) => {
     const { offset = defaultOffset, intensity = defaultIntensity } = (options || {}) as TEffectOptions;
     const newData = new Uint8Array(data);
     const numRects = intensity;
@@ -55,6 +55,12 @@ const rectangles: IEffectHandler = async ({ data, width, height }, options = nul
     }
 
     return newData;
+};
+
+const rectangles: TEffectExport = {
+    name: 'rectangles',
+    browser: global,
+    node: global
 };
 
 export { rectangles };

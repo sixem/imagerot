@@ -1,4 +1,4 @@
-import { IEffectHandler  } from '../../types';
+import { TEffectItem, TEffectExport } from '../../types';
 
 type TEffectOptions = {
     direction: string,
@@ -8,7 +8,7 @@ type TEffectOptions = {
 const defaultDirection = 'horizontal';
 const defaultIntensity = 5;
 
-const blur: IEffectHandler = async ({ data, width, height }, options = null) => {
+const global: TEffectItem = async ({ data, width, height }, options = null) => {
     const { direction = defaultDirection, intensity = defaultIntensity } = (options || {}) as TEffectOptions;
     const buffer = new Uint8Array(data.length);
     buffer.set(data);
@@ -53,6 +53,12 @@ const blur: IEffectHandler = async ({ data, width, height }, options = null) => 
     }
 
     return buffer;
+};
+
+const blur: TEffectExport = {
+    name: 'blur',
+    browser: global,
+    node: global
 };
 
 export { blur };

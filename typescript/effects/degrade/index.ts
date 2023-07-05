@@ -1,4 +1,5 @@
-import { IEffectHandler } from '../../types';
+import { TEffectItem, TEffectExport } from '../../types';
+import { createCanvas, Image } from 'canvas';
 
 type TEffectOptions = {
     quality: number;
@@ -6,56 +7,58 @@ type TEffectOptions = {
 
 const defaultQuality = 0.075;
 
-const degrade: IEffectHandler = async ({ data, width, height }, options = null) => {
+const node: TEffectItem = async ({ data, width, height }, options = null) => {
     const { quality = defaultQuality } = (options || {}) as TEffectOptions;
-
-    const isNodeEnvironment = typeof window === 'undefined';
-    
-    let Canvas: any;
-    let Image: any;
-
-    if(isNodeEnvironment) {
-        ({ Canvas, Image } = await import('canvas'));
-    }
-
-    const createCanvas = (width: number, height: number) => isNodeEnvironment
-        ? new Canvas(width, height)
-        : new OffscreenCanvas(width, height);
-    
-    const createImageBitmap = (blob: Blob) => isNodeEnvironment
-        ? Promise.resolve(new Image(blob))
-        : window.createImageBitmap(blob);
-
-    const blobToBuffer = async (blob: Blob, width: number, height: number): Promise<Uint8Array> => {
-        const imageBitmap = await createImageBitmap(blob);
-        const canvas = createCanvas(width, height);
-        const context = canvas.getContext('2d');
-
-        if(!context) {
-            throw new Error('Failed to obtain context');
-        }
-
-        context.drawImage(imageBitmap, 0, 0);
-        const imageData = context.getImageData(0, 0, width, height);
-
-        return new Uint8Array(imageData.data.buffer);
-    };
-
     const canvas = createCanvas(width, height);
     const context = canvas.getContext('2d');
 
-    if(!context) {
+    const imgData = context.createImageData(width, height);
+    imgData.data.set(data);
+    context.putImageData(imgData, 0, 0);
+
+    const degradedImage = canvas.toBuffer('image/jpeg', {
+        quality
+    });
+
+    const img = new Image();
+    img.src = degradedImage;
+
+    context.clearRect(0, 0, canvas.width, canvas.height);
+    context.drawImage(img, 0, 0, img.width, img.height);
+    const degradedImageData = context.getImageData(0, 0, width, height);
+
+    return new Uint8Array(degradedImageData.data);
+};
+
+const browser: TEffectItem = async ({ data, width, height }, options = null) => {
+    const { quality = defaultQuality } = (options || {}) as TEffectOptions;
+    const canvas = new OffscreenCanvas(width, height);
+    const context = canvas.getContext('2d');
+
+    if (!context) {
         throw new Error('Failed to obtain context');
     }
 
     const imageData = new ImageData(new Uint8ClampedArray(data.buffer), width, height);
     context.putImageData(imageData, 0, 0);
 
-    const degradedBlob = isNodeEnvironment ? canvas.toBuffer() : await canvas.convertToBlob({
+    const degradedBlob = await canvas.convertToBlob({
         type: 'image/jpeg', quality
     });
 
-    return await blobToBuffer(degradedBlob, width, height);
+    const imageBitmap = await window.createImageBitmap(degradedBlob);
+    context.clearRect(0, 0, canvas.width, canvas.height);
+    context.drawImage(imageBitmap, 0, 0);
+    const degradedImageData = context.getImageData(0, 0, width, height);
+
+    return new Uint8Array(degradedImageData.data.buffer);
+};
+
+
+const degrade: TEffectExport = {
+    name: 'degrade',
+    browser: browser,
+    node: node
 };
 
 export { degrade };
