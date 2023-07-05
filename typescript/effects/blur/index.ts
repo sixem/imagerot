@@ -1,19 +1,20 @@
-import { IBufferHandlerParams  } from '../../types';
+import { IEffectHandler  } from '../../types';
 
-type TBlurHandler = (params: IBufferHandlerParams & {
-    blurDirection: string;
-    blurIntensity?: number;
-}) => Uint8Array;
+type TEffectOptions = {
+    direction: string,
+    intensity?: number
+};
 
-const blur: TBlurHandler = ({ data, width, height, blurDirection, blurIntensity = 5 }) =>
-{
+const defaultDirection = 'horizontal';
+const defaultIntensity = 5;
+
+const blur: IEffectHandler = async ({ data, width, height }, options = null) => {
+    const { direction = defaultDirection, intensity = defaultIntensity } = (options || {}) as TEffectOptions;
     const buffer = new Uint8Array(data.length);
     buffer.set(data);
 
-    for (let y = 0; y < height; y++)
-    {
-        for (let x = 0; x < width; x++)
-        {
+    for(let y = 0; y < height; y++) {
+        for(let x = 0; x < width; x++) {
             let index = (y * width + x) * 4;
 
             let sumR = 0,
@@ -21,12 +22,9 @@ const blur: TBlurHandler = ({ data, width, height, blurDirection, blurIntensity 
                 sumB = 0,
                 count = 0;
 
-            for (let i = 1; i <= blurIntensity; i++)
-            {
-                if(blurDirection === 'horizontal')
-                {
-                    if(x + i < width)
-                    {
+            for(let i = 1; i <= intensity; i++) {
+                if(direction === 'horizontal') {
+                    if(x + i < width) {
                         let nextIndex = (y * width + x + i) * 4;
 
                         sumR += data[nextIndex];
@@ -35,10 +33,8 @@ const blur: TBlurHandler = ({ data, width, height, blurDirection, blurIntensity 
 
                         count++;
                     }
-                } else if(blurDirection === 'vertical')
-                {
-                    if(y + i < height)
-                    {
+                } else if(direction === 'vertical') {
+                    if(y + i < height) {
                         let nextIndex = ((y + i) * width + x) * 4;
 
                         sumR += data[nextIndex];

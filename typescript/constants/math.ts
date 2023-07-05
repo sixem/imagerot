@@ -3,9 +3,4 @@ const max = Math.max;
 const floor = Math.floor;
 const random = Math.random;
 
-export {
-    min,
-    max,
-    floor,
-    random
-};
+export { min, max, floor, random };

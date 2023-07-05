@@ -7,11 +7,11 @@ const weight: [number, number] = [0.25, 0.5];
 
 type TAlgorithmHandler = (params: IBufferHandlerParams & {
     weight?: [number, number];
-}) => Uint8Array;
+}) => Promise<Uint8Array>;
 
-const chimera: TBufferHandler = ({ data, width, height }) =>
+const chimera: TBufferHandler = async ({ data, width, height }) =>
 {
-    const algorithm: TAlgorithmHandler = ({ data, width, height, weight = [0.25, 0.5] }) =>
+    const algorithm: TAlgorithmHandler = async ({ data, width, height, weight = [0.25, 0.5] }) =>
     {
         for (let y = 0; y < height; y++)
         {
@@ -32,11 +32,11 @@ const chimera: TBufferHandler = ({ data, width, height }) =>
         return data;
     };
 
-    const blurDirection = random() >= 0.5 ? 'horizontal' : 'vertical';
-    const blurIntensity = randomize(5, 10);
+    const direction = random() >= 0.5 ? 'horizontal' : 'vertical';
+    const intensity = randomize(5, 10);
 
-    data = blur({ data, width, height, blurDirection, blurIntensity });
-    data = algorithm({ data, width, height, weight });
+    data = await blur({ data, width, height }, { direction, intensity }) || data;
+    data = await algorithm({ data, width, height, weight });
 
     for (let index = 0; index < data.length; index += 4)
     {
@@ -51,7 +51,7 @@ const chimera: TBufferHandler = ({ data, width, height }) =>
         };
     }
 
-    data = rectangles({ data, width, height, offset: 45, intensity: 20 });
+    data = await rectangles({ data, width, height }, { offset: 45, intensity: 20 }) || data;
 
     return data;
 };
