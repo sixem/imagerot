@@ -1,10 +1,8 @@
-const urlToBuffer = async (url: string): Promise<[Uint8Array | null, number, number]> =>
-{
+const urlToBuffer = async (url: string): Promise<[Uint8Array | null, number, number]> => {
     const response = await fetch(url);
     const imageBlob = await response.blob();
 
-    const imageLoadPromise: Promise<HTMLImageElement> = new Promise((resolve, reject) =>
-    {
+    const imageLoadPromise: Promise<HTMLImageElement> = new Promise((resolve, reject) => {
         const image = new Image();
 
         image.onload = () => resolve(image);
@@ -17,11 +15,7 @@ const urlToBuffer = async (url: string): Promise<[Uint8Array | null, number, num
     const canvas = new OffscreenCanvas(image.width, image.height);
     const context = canvas.getContext('2d');
 
-    canvas.width = image.width;
-    canvas.height = image.height;
-
     context?.drawImage(image, 0, 0, image.width, image.height);
-
     const imageData = context?.getImageData(0, 0, image.width, image.height);
 
     URL.revokeObjectURL(image.src);
@@ -33,6 +27,4 @@ const urlToBuffer = async (url: string): Promise<[Uint8Array | null, number, num
     ];
 };
 
-export {
-    urlToBuffer
-};
+export { urlToBuffer };

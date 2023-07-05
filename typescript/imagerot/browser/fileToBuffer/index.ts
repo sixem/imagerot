@@ -1,15 +1,11 @@
 import { IRotData } from '../../../types';
 
-const fileToBuffer = async (file: File): Promise<IRotData> =>
-{
-    return new Promise<IRotData>((resolve, reject) =>
-    {
+const fileToBuffer = async (file: File): Promise<IRotData> => {
+    return new Promise<IRotData>((resolve, reject) => {
         const reader = new FileReader();
 
-        reader.onload = async () =>
-        {
-            const imageLoadPromise: Promise<HTMLImageElement> = new Promise((resolve, reject) =>
-            {
+        reader.onload = async () => {
+            const imageLoadPromise: Promise<HTMLImageElement> = new Promise((resolve, reject) => {
                 const image = new Image();
         
                 image.onload = () => resolve(image);
@@ -22,11 +18,7 @@ const fileToBuffer = async (file: File): Promise<IRotData> =>
             const canvas = new OffscreenCanvas(image.width, image.height);
             const context = canvas.getContext('2d');
 
-            canvas.width = image.width;
-            canvas.height = image.height;
-
             context?.drawImage(image, 0, 0, image.width, image.height);
-
             const imageData = context?.getImageData(0, 0, image.width, image.height);
 
             URL.revokeObjectURL(image.src);
@@ -38,8 +30,7 @@ const fileToBuffer = async (file: File): Promise<IRotData> =>
             ]);
         };
 
-        reader.onerror = () =>
-        {
+        reader.onerror = () => {
             reject(new Error('Failed to read file'));
         };
 
@@ -47,6 +38,4 @@ const fileToBuffer = async (file: File): Promise<IRotData> =>
     });
 };
 
-export {
-    fileToBuffer
-};
+export { fileToBuffer };

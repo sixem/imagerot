@@ -2,8 +2,7 @@ import { IBufferHandlerParams } from '../../../types';
 
 type TBufferToBlobHandler = (params: IBufferHandlerParams) => Promise<string>;
 
-const bufferToBlob: TBufferToBlobHandler = async ({ data, width, height }) =>
-{
+const bufferToBlob: TBufferToBlobHandler = async ({ data, width, height }) => {
     const canvas = new OffscreenCanvas(width, height);
     const context = canvas.getContext('2d');
 
@@ -12,10 +11,8 @@ const bufferToBlob: TBufferToBlobHandler = async ({ data, width, height }) =>
 
     context?.putImageData(imageData, 0, 0);
 
-    return canvas.convertToBlob().then((blob) =>
-    {
-        if(blob)
-        {
+    return canvas.convertToBlob().then((blob) => {
+        if(blob) {
             return URL.createObjectURL(blob);
         } else {
             throw new Error('Failed to create Blob from canvas image');
@@ -23,6 +20,4 @@ const bufferToBlob: TBufferToBlobHandler = async ({ data, width, height }) =>
     });
 };
 
-export {
-    bufferToBlob
-};
+export { bufferToBlob };

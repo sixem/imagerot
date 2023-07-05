@@ -1,26 +1,19 @@
-import { processBuffer } from '../global/processBuffer';
-import { modes } from '../../modes';
+import { useEffect, useMode } from '../global';
 import { arrayPick } from '../../helpers';
 import { urlToBuffer } from './urlToBuffer';
 import { fileToBuffer } from './fileToBuffer';
 import { bufferToBlob } from './bufferToBlob';
-import { TRotHandler, IRotData } from '../../types';
 
-export const rot: TRotHandler = async ({ data, dimensions, url, mode }) =>
-{
-    mode = mode || arrayPick(Object.keys(modes));
+import * as modes from '../../modes';
+import * as effects from '../../effects';
 
-    if(!modes.hasOwnProperty(mode))
-    {
-        throw new Error('Invalid mode');
-    }
+import { TRotHandler, IRotData, IBufferHandlerParams, TEffectOptions } from '../../types';
 
+export const stage: TRotHandler = async ({ data, dimensions, url }) => {
     let [buffer, width, height]: IRotData = [null, 0, 0];
 
-    if(data)
-    {
-        if(data instanceof File)
-        {
+    if(data) {
+        if(data instanceof File) {
             [buffer, width, height] = await fileToBuffer(data) as IRotData;
         } else if(dimensions && data instanceof Uint8Array) {
             [buffer, width, height] = [buffer, ...dimensions];
@@ -29,22 +22,27 @@ export const rot: TRotHandler = async ({ data, dimensions, url, mode }) =>
         [buffer, width, height] = await urlToBuffer(url) as IRotData;
     }
 
-    if(!buffer || !width || !height)
-    {
+    if(!buffer || !width || !height) {
         throw new Error('Failed to load image data');
     }
 
-    return await processBuffer({
-        data: buffer, width, height, mode
-    });
+    return { data: buffer, width, height };
 };
 
-export const listModes = () =>
-{
+export const listModes = () => {
     return Object.keys(modes);
-
 };
 
-export {
-    bufferToBlob
+export const listEffects = () => {
+    return Object.keys(effects);
 };
+
+export const getRandomMode = () => {
+    return arrayPick(Object.keys(modes))
+};
+
+export const getRandomEffect = () => {
+    return arrayPick(Object.keys(effects))
+};
+
+export { bufferToBlob, useEffect, useMode };
