@@ -1,17 +1,17 @@
 import { random, floor, min, max } from '../../constants/math';
 import { randomize } from '../../helpers';
 import { blur, rectangles } from '../../effects';
-import { BufferHandler, BufferHandlerParams } from '../../types';
+import { TBufferHandler, IBufferHandlerParams } from '../../types';
 
 const weight: [number, number] = [0.25, 0.5];
 
-type AlgorithmHandler = (params: BufferHandlerParams & {
+type TAlgorithmHandler = (params: IBufferHandlerParams & {
     weight?: [number, number];
 }) => Uint8Array;
 
-const chimera: BufferHandler = ({ data, width, height }) =>
+const chimera: TBufferHandler = ({ data, width, height }) =>
 {
-    const algorithm: AlgorithmHandler = ({ data, width, height, weight = [0.25, 0.5] }) =>
+    const algorithm: TAlgorithmHandler = ({ data, width, height, weight = [0.25, 0.5] }) =>
     {
         for (let y = 0; y < height; y++)
         {

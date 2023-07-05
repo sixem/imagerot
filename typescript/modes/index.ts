@@ -1,8 +1,8 @@
-import { BufferHandler } from '../types';
+import { TBufferHandler } from '../types';
 import { chimera } from './chimera';
 
 export const modes: {
-    [key: string]: BufferHandler;
+    [key: string]: TBufferHandler;
 } = {
     chimera
 };
