@@ -7,9 +7,8 @@ interface IBufferHandlerParams {
 type TBufferHandler = (params: IBufferHandlerParams) => Promise<Uint8Array>;
 
 interface IRotParams {
-    data?: Uint8Array | Object | Buffer | File;
+    data?: Uint8Array | Object | Buffer | File | [Uint8Array, number, number];
     url?: string;
-    dimensions?: [number, number];
 };
 
 type IRotData = [Uint8Array | null, number, number];
@@ -20,13 +19,27 @@ type TEffectOptions = {
     [key: string]: string | number,
 };
 
-type IEffectHandler = (params: IBufferHandlerParams, options?: TEffectOptions | null) => Promise<Uint8Array | null>;
+type TEffectItem = (params: IBufferHandlerParams, options?: TEffectOptions | null) => Promise<Uint8Array | null>;
+
+type TEffectExport = {
+    name: string;
+    browser: TEffectItem,
+    node: TEffectItem
+};
+
+type TMode = (params: IBufferHandlerParams & {
+    effects?: {
+        [key: string]: TEffectItem
+    }
+}) => Promise<Uint8Array>;
 
 export {
-    IEffectHandler,
+    TEffectItem,
     TEffectOptions,
+    TEffectExport,
     TBufferHandler,
     IBufferHandlerParams,
+    TMode,
     TRotHandler,
     IRotParams,
     IRotData
