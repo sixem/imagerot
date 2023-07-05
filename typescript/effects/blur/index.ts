@@ -1,11 +1,11 @@
-import { BufferHandlerParams  } from '../../types';
+import { IBufferHandlerParams  } from '../../types';
 
-type BlurHandler = (params: BufferHandlerParams & {
+type TBlurHandler = (params: IBufferHandlerParams & {
     blurDirection: string;
     blurIntensity?: number;
 }) => Uint8Array;
 
-const blur: BlurHandler = ({ data, width, height, blurDirection, blurIntensity = 5 }) =>
+const blur: TBlurHandler = ({ data, width, height, blurDirection, blurIntensity = 5 }) =>
 {
     const buffer = new Uint8Array(data.length);
     buffer.set(data);

@@ -1,11 +1,11 @@
-import { BufferHandlerParams  } from '../../types';
+import { IBufferHandlerParams  } from '../../types';
 
-type RectanglesHandler = (params: BufferHandlerParams & {
+type TRectanglesHandler = (params: IBufferHandlerParams & {
     offset: number;
     intensity: number;
 }) => Uint8Array;
 
-const rectangles: RectanglesHandler = ({ data, width, height, offset, intensity }) =>
+const rectangles: TRectanglesHandler = ({ data, width, height, offset, intensity }) =>
 {
     const newData = new Uint8Array(data);
     const numRects = intensity;
