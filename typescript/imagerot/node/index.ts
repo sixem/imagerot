@@ -1,4 +1,5 @@
 import { fileBufferToUint8Array } from './fileBufferToUint8Array';
+import { saveBuffer } from './saveBuffer';
 import { urlToBuffer } from './urlToBuffer';
 import { useEffect as _useEffect, useMode as _useMode } from '../global';
 import { TRotHandler, IRotData } from '../../types';
@@ -50,3 +51,5 @@ export const useEffect = async ({ data, width, height }: TUseEffect[0], effect: 
 export const useMode = async ({ data, width, height }: TUseMode[0], mode: TUseMode[2]) => {
     return _useMode({ data, width, height }, effectPool, mode);
 };
+
+export { saveBuffer };
