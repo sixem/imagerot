@@ -8,7 +8,7 @@ const useEffect = async ({ data, width, height }: IBufferHandlerParams, effectPo
 
     for(let _effect of effectsToUse) {
         if(!effectPool[_effect]) {
-            throw new Error('Invalid effect');
+            throw new Error(`Invalid effect: ${_effect}`);
         }
 
         const applied = await applyEffect({ data, width, height, effectPool, effect: _effect, options });

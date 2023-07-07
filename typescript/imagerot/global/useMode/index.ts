@@ -9,7 +9,7 @@ const useMode = async ({ data, width, height }: IBufferHandlerParams, effectPool
 
     for(let _mode of modesToUse) {
         if(!modes.hasOwnProperty(_mode)) {
-            throw new Error('Invalid mode');
+            throw new Error(`Invalid mode: ${_mode}`);
         }
 
         const applied = await applyMode({ data, width, height, effectPool, mode: _mode });
