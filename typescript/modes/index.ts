@@ -1,3 +1,2 @@
-import { chimera } from './chimera';
-
-export { chimera };
+export * from './chimera';
+export * from './lacunae';

@@ -21,11 +21,23 @@ type TEffectOptions = {
 
 type TEffectItem = (params: IBufferHandlerParams, options?: TEffectOptions | null) => Promise<Uint8Array | null>;
 
-type TEffectExport = {
+type TEffectItemBrowser = {
     name: string;
-    browser: TEffectItem,
-    node: TEffectItem
+    browser: TEffectItem;
 };
+
+type TEffectItemNode = {
+    name: string;
+    node: TEffectItem;
+};
+
+type TEffectItemShared = {
+    name: string;
+    browser: TEffectItem;
+    node: TEffectItem;
+};
+
+type TEffectExport = TEffectItemBrowser | TEffectItemNode | TEffectItemShared;
 
 type TMode = (params: IBufferHandlerParams & {
     effects?: {
@@ -37,6 +49,8 @@ export {
     TEffectItem,
     TEffectOptions,
     TEffectExport,
+    TEffectItemNode,
+    TEffectItemBrowser,
     TBufferHandler,
     IBufferHandlerParams,
     TMode,
