@@ -1,4 +1,4 @@
-import { TEffectItem, TEffectExport } from '../../types';
+import { TEffectItem, TEffectExport } from '../../../types';
 
 type TEffectOptions = {
     direction: string,
