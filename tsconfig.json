@@ -11,9 +11,6 @@
       "forceConsistentCasingInFileNames": true
   },
   "include": [
-      "typescript/**/*"
-  ],
-  "exclude": [
-    "typescript/imagerot/browser/index.ts"
+      "typescript/imagerot/node/index.ts"
   ]
 }

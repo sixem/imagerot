@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "build:ts": "npx tsc",
+    "build:ts": "cross-env ENVIRONMENT=node npx tsc",
     "build:webpack": "webpack --mode production",
     "build": "npm run build:ts && npm run build:webpack",
     "prepack": "npm run build"
@@ -14,6 +14,7 @@
   "main": "./lib/imagerot/node/index.js",
   "types": "./lib/imagerot/node/index.d.ts",
   "devDependencies": {
+    "cross-env": "^7.0.3",
     "ts-loader": "^9.4.4",
     "typescript": "^5.1.6",
     "webpack": "^5.88.1",
