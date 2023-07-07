@@ -1,1 +1,1122 @@
-!function(e,t){"object"==typeof exports&&"object"==typeof module?module.exports=t():"function"==typeof define&&define.amd?define("imagerot",[],t):"object"==typeof exports?exports.imagerot=t():e.imagerot=t()}(this,(()=>{return e={292:(e,t,n)=>{const o=n(850);t.parseFont=o,t.createCanvas=function(e,t){return Object.assign(document.createElement("canvas"),{width:e,height:t})},t.createImageData=function(e,t,n){switch(arguments.length){case 0:return new ImageData;case 1:return new ImageData(e);case 2:return new ImageData(e,t);default:return new ImageData(e,t,n)}},t.loadImage=function(e,t){return new Promise((function(n,o){const i=Object.assign(document.createElement("img"),t);function r(){i.onload=null,i.onerror=null}i.onload=function(){r(),n(i)},i.onerror=function(){r(),o(new Error('Failed to load the image "'+e+'"'))},i.src=e}))}},850:e=>{"use strict";const t="'([^']+)'|\"([^\"]+)\"|[\\w\\s-]+",n=new RegExp("(bold|bolder|lighter|[1-9]00) +","i"),o=new RegExp("(italic|oblique) +","i"),i=new RegExp("(small-caps) +","i"),r=new RegExp("(ultra-condensed|extra-condensed|condensed|semi-condensed|semi-expanded|expanded|extra-expanded|ultra-expanded) +","i"),a=new RegExp(`([\\d\\.]+)(px|pt|pc|in|cm|mm|%|em|ex|ch|rem|q) *((?:${t})( *, *(?:${t}))*)`),c={};e.exports=e=>{if(c[e])return c[e];const t=a.exec(e);if(!t)return;const u={weight:"normal",style:"normal",stretch:"normal",variant:"normal",size:parseFloat(t[1]),unit:t[2],family:t[3].replace(/["']/g,"").replace(/ *, */g,",")};let f,d,s,l;const h=e.substring(0,t.index);switch((f=n.exec(h))&&(u.weight=f[1]),(d=o.exec(h))&&(u.style=d[1]),(s=i.exec(h))&&(u.variant=s[1]),(l=r.exec(h))&&(u.stretch=l[1]),u.unit){case"pt":u.size/=.75;break;case"pc":u.size*=16;break;case"in":u.size*=96;break;case"cm":u.size*=96/2.54;break;case"mm":u.size*=96/25.4;break;case"%":break;case"em":case"rem":u.size*=16/.75;break;case"q":u.size*=96/25.4/4}return c[e]=u}},517:(e,t)=>{"use strict";Object.defineProperty(t,"__esModule",{value:!0}),t.random=t.floor=t.max=t.min=void 0;const n=Math.min;t.min=n;const o=Math.max;t.max=o;const i=Math.floor;t.floor=i;const r=Math.random;t.random=r},500:function(e,t){"use strict";var n=this&&this.__awaiter||function(e,t,n,o){return new(n||(n=Promise))((function(i,r){function a(e){try{u(o.next(e))}catch(e){r(e)}}function c(e){try{u(o.throw(e))}catch(e){r(e)}}function u(e){var t;e.done?i(e.value):(t=e.value,t instanceof n?t:new n((function(e){e(t)}))).then(a,c)}u((o=o.apply(e,t||[])).next())}))};Object.defineProperty(t,"__esModule",{value:!0}),t.blur=void 0;const o="horizontal",i=5,r=({data:e,width:t,height:r},a=null)=>n(void 0,void 0,void 0,(function*(){const{direction:n=o,intensity:c=i}=a||{},u=new Uint8Array(e.length);u.set(e);for(let o=0;o<r;o++)for(let i=0;i<t;i++){let a=4*(o*t+i),f=0,d=0,s=0,l=0;for(let a=1;a<=c;a++)if("horizontal"===n){if(i+a<t){let n=4*(o*t+i+a);f+=e[n],d+=e[n+1],s+=e[n+2],l++}}else if("vertical"===n&&o+a<r){let n=4*((o+a)*t+i);f+=e[n],d+=e[n+1],s+=e[n+2],l++}u[a]=f/l,u[a+1]=d/l,u[a+2]=s/l}return u})),a={name:"blur",browser:r,node:r};t.blur=a},295:(e,t,n)=>{"use strict";Object.defineProperty(t,"__esModule",{value:!0}),t.effectPool=void 0;const o=n(500),i=n(324),r=n(467),a=n(764),c=[o.blur,i.rectangles,r.degrade,a.pixelate];t.effectPool=c.reduce(((e,t)=>(e[t.name]=t.browser,e)),{})},467:function(e,t,n){"use strict";var o=this&&this.__awaiter||function(e,t,n,o){return new(n||(n=Promise))((function(i,r){function a(e){try{u(o.next(e))}catch(e){r(e)}}function c(e){try{u(o.throw(e))}catch(e){r(e)}}function u(e){var t;e.done?i(e.value):(t=e.value,t instanceof n?t:new n((function(e){e(t)}))).then(a,c)}u((o=o.apply(e,t||[])).next())}))};Object.defineProperty(t,"__esModule",{value:!0}),t.degrade=void 0;const i=n(292),r=.075,a={name:"degrade",browser:({data:e,width:t,height:n},i=null)=>o(void 0,void 0,void 0,(function*(){const{quality:o=r}=i||{},a=new OffscreenCanvas(t,n),c=a.getContext("2d");if(!c)throw new Error("Failed to obtain context");const u=new ImageData(new Uint8ClampedArray(e.buffer),t,n);c.putImageData(u,0,0);const f=yield a.convertToBlob({type:"image/jpeg",quality:o}),d=yield window.createImageBitmap(f);c.clearRect(0,0,a.width,a.height),c.drawImage(d,0,0);const s=c.getImageData(0,0,t,n);return new Uint8Array(s.data.buffer)})),node:({data:e,width:t,height:n},a=null)=>o(void 0,void 0,void 0,(function*(){const{quality:o=r}=a||{},c=(0,i.createCanvas)(t,n),u=c.getContext("2d"),f=u.createImageData(t,n);f.data.set(e),u.putImageData(f,0,0);const d=c.toBuffer("image/jpeg",{quality:o}),s=new i.Image;s.src=d,u.clearRect(0,0,c.width,c.height),u.drawImage(s,0,0,s.width,s.height);const l=u.getImageData(0,0,t,n);return new Uint8Array(l.data)}))};t.degrade=a},764:function(e,t,n){"use strict";var o=this&&this.__awaiter||function(e,t,n,o){return new(n||(n=Promise))((function(i,r){function a(e){try{u(o.next(e))}catch(e){r(e)}}function c(e){try{u(o.throw(e))}catch(e){r(e)}}function u(e){var t;e.done?i(e.value):(t=e.value,t instanceof n?t:new n((function(e){e(t)}))).then(a,c)}u((o=o.apply(e,t||[])).next())}))};Object.defineProperty(t,"__esModule",{value:!0}),t.pixelate=void 0;const i=n(292),r=8,a=({data:e,width:t,height:n},a=null)=>o(void 0,void 0,void 0,(function*(){const{intensity:o=r}=a||{},c=(0,i.createCanvas)(t,n),u=c.getContext("2d");let f=null;"undefined"!=typeof window?(f=new ImageData(new Uint8ClampedArray(e),t,n),null==u||u.putImageData(f,0,0)):(f=u.createImageData(t,n),f.data.set(e),u.putImageData(f,0,0));const d=(0,i.createCanvas)(t,n),s=d.getContext("2d");s.imageSmoothingEnabled=!1,s.drawImage(c,0,0,t/o,n/o),s.drawImage(d,0,0,t/o,n/o,0,0,t,n);const l=s.getImageData(0,0,t,n).data;return new Uint8Array(l.buffer)})),c={name:"pixelate",browser:a,node:a};t.pixelate=c},324:function(e,t,n){"use strict";var o=this&&this.__awaiter||function(e,t,n,o){return new(n||(n=Promise))((function(i,r){function a(e){try{u(o.next(e))}catch(e){r(e)}}function c(e){try{u(o.throw(e))}catch(e){r(e)}}function u(e){var t;e.done?i(e.value):(t=e.value,t instanceof n?t:new n((function(e){e(t)}))).then(a,c)}u((o=o.apply(e,t||[])).next())}))};Object.defineProperty(t,"__esModule",{value:!0}),t.rectangles=void 0;const i=n(517),r=45,a=20,c=({data:e,width:t,height:n},c=null)=>o(void 0,void 0,void 0,(function*(){const{offset:o=r,intensity:u=a}=c||{},f=new Uint8Array(e),d=u,s=(0,i.max)(20,(0,i.min)(t,n)/50);for(let r=0;r<d;r++){const r=s+(0,i.floor)((0,i.random)()*(t-s)/o),a=s+(0,i.floor)((0,i.random)()*(n-s)/o),c=(0,i.floor)((0,i.random)()*(t-r)),u=(0,i.floor)((0,i.random)()*(n-a)),d=(0,i.floor)((0,i.random)()*t/o),l=(0,i.floor)((0,i.random)()*n/o),h=5+(0,i.floor)(15*(0,i.random)())*((0,i.random)()>.5?1:-1),v=(0,i.random)()<.15;for(let o=u;o<u+a;o++)for(let a=c;a<c+r;a++){const r=4*(o*t+a),c=4*((o+l)%n*t+(a+d)%t);for(let t=0;t<3;t++){let n=e[c+t]+h;v&&(n=255-n),n=(0,i.max)(0,(0,i.min)(255,n)),v&&n<50||(f[r+t]=n)}f[r+3]=e[c+3]}}return f})),u={name:"rectangles",browser:c,node:c};t.rectangles=u},564:(e,t)=>{"use strict";Object.defineProperty(t,"__esModule",{value:!0}),t.arrayPick=void 0,t.arrayPick=e=>e[Math.floor(Math.random()*e.length)]},513:function(e,t,n){"use strict";var o=this&&this.__createBinding||(Object.create?function(e,t,n,o){void 0===o&&(o=n);var i=Object.getOwnPropertyDescriptor(t,n);i&&!("get"in i?!t.__esModule:i.writable||i.configurable)||(i={enumerable:!0,get:function(){return t[n]}}),Object.defineProperty(e,o,i)}:function(e,t,n,o){void 0===o&&(o=n),e[o]=t[n]}),i=this&&this.__exportStar||function(e,t){for(var n in e)"default"===n||Object.prototype.hasOwnProperty.call(t,n)||o(t,e,n)};Object.defineProperty(t,"__esModule",{value:!0}),i(n(749),t),i(n(564),t)},749:(e,t)=>{"use strict";Object.defineProperty(t,"__esModule",{value:!0}),t.randomize=void 0,t.randomize=(e,t)=>Math.floor(Math.random()*(t-e+1)+e)},433:function(e,t){"use strict";var n=this&&this.__awaiter||function(e,t,n,o){return new(n||(n=Promise))((function(i,r){function a(e){try{u(o.next(e))}catch(e){r(e)}}function c(e){try{u(o.throw(e))}catch(e){r(e)}}function u(e){var t;e.done?i(e.value):(t=e.value,t instanceof n?t:new n((function(e){e(t)}))).then(a,c)}u((o=o.apply(e,t||[])).next())}))};Object.defineProperty(t,"__esModule",{value:!0}),t.bufferToBlob=void 0,t.bufferToBlob=({data:e,width:t,height:o})=>n(void 0,void 0,void 0,(function*(){const n=new OffscreenCanvas(t,o),i=n.getContext("2d"),r=new Uint8ClampedArray(e.buffer),a=new ImageData(r,t,o);return null==i||i.putImageData(a,0,0),n.convertToBlob().then((e=>{if(e)return URL.createObjectURL(e);throw new Error("Failed to create Blob from canvas image")}))}))},208:function(e,t){"use strict";var n=this&&this.__awaiter||function(e,t,n,o){return new(n||(n=Promise))((function(i,r){function a(e){try{u(o.next(e))}catch(e){r(e)}}function c(e){try{u(o.throw(e))}catch(e){r(e)}}function u(e){var t;e.done?i(e.value):(t=e.value,t instanceof n?t:new n((function(e){e(t)}))).then(a,c)}u((o=o.apply(e,t||[])).next())}))};Object.defineProperty(t,"__esModule",{value:!0}),t.fileToBuffer=void 0,t.fileToBuffer=e=>n(void 0,void 0,void 0,(function*(){return new Promise(((t,o)=>{const i=new FileReader;i.onload=()=>n(void 0,void 0,void 0,(function*(){const n=new Promise(((t,n)=>{const o=new Image;o.onload=()=>t(o),o.onerror=n,o.src=URL.createObjectURL(e)})),o=yield n,i=new OffscreenCanvas(o.width,o.height).getContext("2d");null==i||i.drawImage(o,0,0,o.width,o.height);const r=null==i?void 0:i.getImageData(0,0,o.width,o.height);URL.revokeObjectURL(o.src),t([r?new Uint8Array(r.data.buffer):null,o.width||0,o.height||0])})),i.onerror=()=>{o(new Error("Failed to read file"))},i.readAsArrayBuffer(e)}))}))},532:function(e,t,n){"use strict";var o=this&&this.__createBinding||(Object.create?function(e,t,n,o){void 0===o&&(o=n);var i=Object.getOwnPropertyDescriptor(t,n);i&&!("get"in i?!t.__esModule:i.writable||i.configurable)||(i={enumerable:!0,get:function(){return t[n]}}),Object.defineProperty(e,o,i)}:function(e,t,n,o){void 0===o&&(o=n),e[o]=t[n]}),i=this&&this.__setModuleDefault||(Object.create?function(e,t){Object.defineProperty(e,"default",{enumerable:!0,value:t})}:function(e,t){e.default=t}),r=this&&this.__importStar||function(e){if(e&&e.__esModule)return e;var t={};if(null!=e)for(var n in e)"default"!==n&&Object.prototype.hasOwnProperty.call(e,n)&&o(t,e,n);return i(t,e),t},a=this&&this.__awaiter||function(e,t,n,o){return new(n||(n=Promise))((function(i,r){function a(e){try{u(o.next(e))}catch(e){r(e)}}function c(e){try{u(o.throw(e))}catch(e){r(e)}}function u(e){var t;e.done?i(e.value):(t=e.value,t instanceof n?t:new n((function(e){e(t)}))).then(a,c)}u((o=o.apply(e,t||[])).next())}))};Object.defineProperty(t,"__esModule",{value:!0}),t.bufferToBlob=t.useMode=t.useEffect=t.getRandomEffect=t.getRandomMode=t.listEffects=t.listModes=t.stage=void 0;const c=n(513),u=n(468),f=n(951),d=n(208),s=n(433);Object.defineProperty(t,"bufferToBlob",{enumerable:!0,get:function(){return s.bufferToBlob}});const l=r(n(961)),h=n(295);t.stage=({data:e,url:t})=>a(void 0,void 0,void 0,(function*(){let[n,o,i]=[null,0,0];if(e?e instanceof File?[n,o,i]=yield(0,d.fileToBuffer)(e):Array.isArray(e)&&e[0]instanceof Uint8Array&&([n,o,i]=[...e]):t&&"string"==typeof t&&([n,o,i]=yield(0,u.urlToBuffer)(t)),!n||!o||!i)throw new Error("Failed to load image data");return{data:n,width:o,height:i}})),t.listModes=()=>Object.keys(l),t.listEffects=()=>Object.keys(h.effectPool),t.getRandomMode=()=>(0,c.arrayPick)(Object.keys(l)),t.getRandomEffect=()=>(0,c.arrayPick)(Object.keys(h.effectPool)),t.useEffect=({data:e,width:t,height:n},o,i)=>a(void 0,void 0,void 0,(function*(){return(0,f.useEffect)({data:e,width:t,height:n},h.effectPool,o,i)})),t.useMode=({data:e,width:t,height:n},o)=>a(void 0,void 0,void 0,(function*(){return(0,f.useMode)({data:e,width:t,height:n},h.effectPool,o)}))},468:function(e,t){"use strict";var n=this&&this.__awaiter||function(e,t,n,o){return new(n||(n=Promise))((function(i,r){function a(e){try{u(o.next(e))}catch(e){r(e)}}function c(e){try{u(o.throw(e))}catch(e){r(e)}}function u(e){var t;e.done?i(e.value):(t=e.value,t instanceof n?t:new n((function(e){e(t)}))).then(a,c)}u((o=o.apply(e,t||[])).next())}))};Object.defineProperty(t,"__esModule",{value:!0}),t.urlToBuffer=void 0,t.urlToBuffer=e=>n(void 0,void 0,void 0,(function*(){const t=yield fetch(e),n=yield t.blob(),o=new Promise(((e,t)=>{const o=new Image;o.onload=()=>e(o),o.onerror=t,o.src=URL.createObjectURL(n)})),i=yield o,r=new OffscreenCanvas(i.width,i.height).getContext("2d");null==r||r.drawImage(i,0,0,i.width,i.height);const a=null==r?void 0:r.getImageData(0,0,i.width,i.height);return URL.revokeObjectURL(i.src),[a?new Uint8Array(a.data.buffer):null,i.width||0,i.height||0]}))},858:function(e,t){"use strict";var n=this&&this.__awaiter||function(e,t,n,o){return new(n||(n=Promise))((function(i,r){function a(e){try{u(o.next(e))}catch(e){r(e)}}function c(e){try{u(o.throw(e))}catch(e){r(e)}}function u(e){var t;e.done?i(e.value):(t=e.value,t instanceof n?t:new n((function(e){e(t)}))).then(a,c)}u((o=o.apply(e,t||[])).next())}))};Object.defineProperty(t,"__esModule",{value:!0}),t.applyEffect=void 0,t.applyEffect=({data:e,width:t,height:o,effectPool:i,effect:r,options:a=null})=>n(void 0,void 0,void 0,(function*(){return new Promise(((c,u)=>n(void 0,void 0,void 0,(function*(){try{const n=yield((e,t)=>{for(let[n,o]of Object.entries(e))if(n===t)return o;return null})(i,r)({data:e,width:t,height:o},a);n?c({data:n,width:t,height:o}):u("Buffer is null")}catch(e){u(e)}}))))}))},221:function(e,t,n){"use strict";var o=this&&this.__createBinding||(Object.create?function(e,t,n,o){void 0===o&&(o=n);var i=Object.getOwnPropertyDescriptor(t,n);i&&!("get"in i?!t.__esModule:i.writable||i.configurable)||(i={enumerable:!0,get:function(){return t[n]}}),Object.defineProperty(e,o,i)}:function(e,t,n,o){void 0===o&&(o=n),e[o]=t[n]}),i=this&&this.__setModuleDefault||(Object.create?function(e,t){Object.defineProperty(e,"default",{enumerable:!0,value:t})}:function(e,t){e.default=t}),r=this&&this.__importStar||function(e){if(e&&e.__esModule)return e;var t={};if(null!=e)for(var n in e)"default"!==n&&Object.prototype.hasOwnProperty.call(e,n)&&o(t,e,n);return i(t,e),t},a=this&&this.__awaiter||function(e,t,n,o){return new(n||(n=Promise))((function(i,r){function a(e){try{u(o.next(e))}catch(e){r(e)}}function c(e){try{u(o.throw(e))}catch(e){r(e)}}function u(e){var t;e.done?i(e.value):(t=e.value,t instanceof n?t:new n((function(e){e(t)}))).then(a,c)}u((o=o.apply(e,t||[])).next())}))};Object.defineProperty(t,"__esModule",{value:!0}),t.applyMode=void 0;const c=r(n(961));t.applyMode=({data:e,width:t,height:n,mode:o,effectPool:i})=>a(void 0,void 0,void 0,(function*(){return new Promise(((r,u)=>a(void 0,void 0,void 0,(function*(){try{const a=yield(e=>{for(let[t,n]of Object.entries(c))if(t===e)return n;return null})(o)({data:e,width:t,height:n,effects:i});r({data:a,width:t,height:n})}catch(e){u(e)}}))))}))},111:function(e,t){"use strict";var n=this&&this.__awaiter||function(e,t,n,o){return new(n||(n=Promise))((function(i,r){function a(e){try{u(o.next(e))}catch(e){r(e)}}function c(e){try{u(o.throw(e))}catch(e){r(e)}}function u(e){var t;e.done?i(e.value):(t=e.value,t instanceof n?t:new n((function(e){e(t)}))).then(a,c)}u((o=o.apply(e,t||[])).next())}))};Object.defineProperty(t,"__esModule",{value:!0}),t.blobToBuffer=void 0,t.blobToBuffer=(e,t,o)=>n(void 0,void 0,void 0,(function*(){const n=yield createImageBitmap(e),i=new OffscreenCanvas(t,o).getContext("2d");if(!i)throw new Error("Failed to obtain context from `OffscreenCanvas`");i.drawImage(n,0,0);const r=i.getImageData(0,0,t,o);return new Uint8Array(r.data.buffer)}))},951:function(e,t,n){"use strict";var o=this&&this.__createBinding||(Object.create?function(e,t,n,o){void 0===o&&(o=n);var i=Object.getOwnPropertyDescriptor(t,n);i&&!("get"in i?!t.__esModule:i.writable||i.configurable)||(i={enumerable:!0,get:function(){return t[n]}}),Object.defineProperty(e,o,i)}:function(e,t,n,o){void 0===o&&(o=n),e[o]=t[n]}),i=this&&this.__exportStar||function(e,t){for(var n in e)"default"===n||Object.prototype.hasOwnProperty.call(t,n)||o(t,e,n)};Object.defineProperty(t,"__esModule",{value:!0}),i(n(111),t),i(n(236),t),i(n(831),t),i(n(221),t),i(n(858),t)},236:function(e,t,n){"use strict";var o=this&&this.__awaiter||function(e,t,n,o){return new(n||(n=Promise))((function(i,r){function a(e){try{u(o.next(e))}catch(e){r(e)}}function c(e){try{u(o.throw(e))}catch(e){r(e)}}function u(e){var t;e.done?i(e.value):(t=e.value,t instanceof n?t:new n((function(e){e(t)}))).then(a,c)}u((o=o.apply(e,t||[])).next())}))};Object.defineProperty(t,"__esModule",{value:!0}),t.useEffect=void 0;const i=n(858);t.useEffect=({data:e,width:t,height:n},r,a,c)=>o(void 0,void 0,void 0,(function*(){const o=Array.isArray(a)?a:[a];for(let a of o){if(!r[a])throw new Error("Invalid effect");const o=yield(0,i.applyEffect)({data:e,width:t,height:n,effectPool:r,effect:a,options:c});[e,t,n]=[o.data,o.width,o.height]}return{data:e,width:t,height:n}}))},831:function(e,t,n){"use strict";var o=this&&this.__createBinding||(Object.create?function(e,t,n,o){void 0===o&&(o=n);var i=Object.getOwnPropertyDescriptor(t,n);i&&!("get"in i?!t.__esModule:i.writable||i.configurable)||(i={enumerable:!0,get:function(){return t[n]}}),Object.defineProperty(e,o,i)}:function(e,t,n,o){void 0===o&&(o=n),e[o]=t[n]}),i=this&&this.__setModuleDefault||(Object.create?function(e,t){Object.defineProperty(e,"default",{enumerable:!0,value:t})}:function(e,t){e.default=t}),r=this&&this.__importStar||function(e){if(e&&e.__esModule)return e;var t={};if(null!=e)for(var n in e)"default"!==n&&Object.prototype.hasOwnProperty.call(e,n)&&o(t,e,n);return i(t,e),t},a=this&&this.__awaiter||function(e,t,n,o){return new(n||(n=Promise))((function(i,r){function a(e){try{u(o.next(e))}catch(e){r(e)}}function c(e){try{u(o.throw(e))}catch(e){r(e)}}function u(e){var t;e.done?i(e.value):(t=e.value,t instanceof n?t:new n((function(e){e(t)}))).then(a,c)}u((o=o.apply(e,t||[])).next())}))};Object.defineProperty(t,"__esModule",{value:!0}),t.useMode=void 0;const c=n(221),u=r(n(961));t.useMode=({data:e,width:t,height:n},o,i)=>a(void 0,void 0,void 0,(function*(){const r=Array.isArray(i)?i:[i];for(let i of r){if(!u.hasOwnProperty(i))throw new Error("Invalid mode");const r=yield(0,c.applyMode)({data:e,width:t,height:n,effectPool:o,mode:i});[e,t,n]=[r.data,r.width,r.height]}return{data:e,width:t,height:n}}))},53:function(e,t,n){"use strict";var o=this&&this.__awaiter||function(e,t,n,o){return new(n||(n=Promise))((function(i,r){function a(e){try{u(o.next(e))}catch(e){r(e)}}function c(e){try{u(o.throw(e))}catch(e){r(e)}}function u(e){var t;e.done?i(e.value):(t=e.value,t instanceof n?t:new n((function(e){e(t)}))).then(a,c)}u((o=o.apply(e,t||[])).next())}))};Object.defineProperty(t,"__esModule",{value:!0}),t.chimera=void 0;const i=n(517),r=n(513),a=[.25,.5];t.chimera=({data:e,width:t,height:n,effects:c})=>o(void 0,void 0,void 0,(function*(){const u=(0,i.random)()>=.5?"horizontal":"vertical",f=(0,r.randomize)(5,10);e=(yield null==c?void 0:c.blur({data:e,width:t,height:n},{direction:u,intensity:f}))||e,e=yield(({data:e,width:t,height:n,weight:i=[.25,.5]})=>o(void 0,void 0,void 0,(function*(){for(let o=0;o<n;o++)for(let n=0;n<t;n++){let r=4*(o*t+n),a=e[r],c=e[r+1],u=e[r+2];e[r+0]=a+c*i[1]+u*i[0],e[r+1]=a*i[1]+c+u*i[0],e[r+2]=a*i[0]+c*i[1]+u}return e})))({data:e,width:t,height:n,weight:a});for(let t=0;t<e.length;t+=4){const n=(0,i.random)()<.2,o=(0,i.random)()<.4?(0,i.floor)(50*(0,i.random)()):0;for(let a=0;a<3;a++)e[t+a]=n?(0,i.min)(e[t+a]+(0,r.randomize)(1,0===a?15:10),255):e[t+a],e[t+a]=(0,i.min)(255,(0,i.max)(0,e[t+a]+((0,i.floor)(20*(0,i.random)())-30))),e[t+a]=o?(0,i.min)(255,(0,i.max)(0,e[t+a]+o)):e[t+a]}return e=(yield null==c?void 0:c.rectangles({data:e,width:t,height:n},{offset:45,intensity:20}))||e}))},961:(e,t,n)=>{"use strict";Object.defineProperty(t,"__esModule",{value:!0}),t.chimera=void 0;const o=n(53);Object.defineProperty(t,"chimera",{enumerable:!0,get:function(){return o.chimera}})}},t={},function n(o){var i=t[o];if(void 0!==i)return i.exports;var r=t[o]={exports:{}};return e[o].call(r.exports,r,r.exports,n),r.exports}(532);var e,t}));
+(function webpackUniversalModuleDefinition(root, factory) {
+	if(typeof exports === 'object' && typeof module === 'object')
+		module.exports = factory();
+	else if(typeof define === 'function' && define.amd)
+		define("imagerot", [], factory);
+	else if(typeof exports === 'object')
+		exports["imagerot"] = factory();
+	else
+		root["imagerot"] = factory();
+})(this, () => {
+return /******/ (() => { // webpackBootstrap
+/******/ 	"use strict";
+/******/ 	var __webpack_modules__ = ({
+
+/***/ 517:
+/***/ ((__unused_webpack_module, exports) => {
+
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.random = exports.floor = exports.max = exports.min = void 0;
+const min = Math.min;
+exports.min = min;
+const max = Math.max;
+exports.max = max;
+const floor = Math.floor;
+exports.floor = floor;
+const random = Math.random;
+exports.random = random;
+
+
+/***/ }),
+
+/***/ 295:
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.effectPool = void 0;
+const effectsCommon = __importStar(__webpack_require__(871));
+const effectsBrowser = __importStar(__webpack_require__(186));
+const effectsUsed = Object.values(Object.assign(Object.assign({}, effectsCommon), effectsBrowser));
+exports.effectPool = effectsUsed.reduce((obj, effect) => {
+    if (effect.hasOwnProperty('browser'))
+        obj[effect.name] = effect.browser;
+    return obj;
+}, {});
+
+
+/***/ }),
+
+/***/ 216:
+/***/ (function(__unused_webpack_module, exports) {
+
+
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.blur = void 0;
+const defaultDirection = 'horizontal';
+const defaultIntensity = 5;
+const global = ({ data, width, height }, options = null) => __awaiter(void 0, void 0, void 0, function* () {
+    const { direction = defaultDirection, intensity = defaultIntensity } = (options || {});
+    const buffer = new Uint8Array(data.length);
+    buffer.set(data);
+    for (let y = 0; y < height; y++) {
+        for (let x = 0; x < width; x++) {
+            let index = (y * width + x) * 4;
+            let sumR = 0, sumG = 0, sumB = 0, count = 0;
+            for (let i = 1; i <= intensity; i++) {
+                if (direction === 'horizontal') {
+                    if (x + i < width) {
+                        let nextIndex = (y * width + x + i) * 4;
+                        sumR += data[nextIndex];
+                        sumG += data[nextIndex + 1];
+                        sumB += data[nextIndex + 2];
+                        count++;
+                    }
+                }
+                else if (direction === 'vertical') {
+                    if (y + i < height) {
+                        let nextIndex = ((y + i) * width + x) * 4;
+                        sumR += data[nextIndex];
+                        sumG += data[nextIndex + 1];
+                        sumB += data[nextIndex + 2];
+                        count++;
+                    }
+                }
+            }
+            buffer[index] = sumR / count;
+            buffer[index + 1] = sumG / count;
+            buffer[index + 2] = sumB / count;
+        }
+    }
+    return buffer;
+});
+const blur = {
+    name: 'blur',
+    browser: global,
+    node: global
+};
+exports.blur = blur;
+
+
+/***/ }),
+
+/***/ 888:
+/***/ (function(__unused_webpack_module, exports) {
+
+
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.dither = void 0;
+const defaultIntensity = 0.5;
+const global = ({ data, width, height }, options = null) => __awaiter(void 0, void 0, void 0, function* () {
+    const { intensity = defaultIntensity } = (options || {});
+    const pixelCount = width * height;
+    for (let i = 0; i < pixelCount; i++) {
+        const index = i * 4;
+        const grayscale = (data[index] + data[index + 1] + data[index + 2]) / 3;
+        data[index] = data[index + 1] = data[index + 2] = grayscale;
+    }
+    for (let i = 0; i < pixelCount; i++) {
+        const index = i * 4;
+        const oldPixel = data[index];
+        const newPixel = oldPixel > (intensity * 255) ? 255 : 0;
+        const quantError = oldPixel - newPixel;
+        data[index] = newPixel;
+        if (index + 4 < data.length)
+            data[index + 4] = data[index + 4] + quantError * 7 / 16;
+        if (index + (width * 4) < data.length)
+            data[index + (width * 4)] = data[index + (width * 4)] + quantError * 5 / 16;
+        if (index + (width * 4) + 4 < data.length)
+            data[index + (width * 4) + 4] = data[index + (width * 4) + 4] + quantError * 1 / 16;
+        if (index + (width * 4) - 4 >= 0)
+            data[index + (width * 4) - 4] = data[index + (width * 4) - 4] + quantError * 3 / 16;
+        data[index + 1] = data[index + 2] = data[index];
+    }
+    return new Uint8Array(data);
+});
+const test = ({ data, width, height }, options = null) => __awaiter(void 0, void 0, void 0, function* () {
+    data = (yield global({ data, width, height }, options));
+    const pixelCount = width * height;
+    // Generate random phase offsets
+    const redPhase = Math.random() * 2 * Math.PI;
+    const greenPhase = Math.random() * 2 * Math.PI;
+    const bluePhase = Math.random() * 2 * Math.PI;
+    for (let i = 0; i < pixelCount; i++) {
+        const index = i * 4;
+        const x = i % width; // x position of the pixel
+        const y = Math.floor(i / width); // y position of the pixel
+        const grayscale = data[index]; // since it's grayscale image, we can take any channel's value
+        const redWave = grayscale * (0.75 + 0.25 * Math.sin(2 * Math.PI * (x / width) + redPhase));
+        const greenWave = grayscale * (0.75 + 0.25 * Math.sin(2 * Math.PI * (y / height) + greenPhase));
+        const blueWave = grayscale * (0.75 + 0.25 * Math.sin(2 * Math.PI * ((x / width + y / height) + bluePhase)));
+        // Apply power function to increase contrast
+        data[index] = Math.pow(redWave / 255, 0.75) * 255; // red
+        data[index + 1] = Math.pow(greenWave / 255, 0.75) * 255; // green
+        data[index + 2] = Math.pow(blueWave / 255, 0.75) * 255; // blue
+    }
+    return new Uint8Array(data);
+});
+const dither = {
+    name: 'dither',
+    browser: test,
+    node: test
+};
+exports.dither = dither;
+
+
+/***/ }),
+
+/***/ 871:
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __exportStar = (this && this.__exportStar) || function(m, exports) {
+    for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+__exportStar(__webpack_require__(216), exports);
+__exportStar(__webpack_require__(888), exports);
+__exportStar(__webpack_require__(164), exports);
+
+
+/***/ }),
+
+/***/ 164:
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.rectangles = void 0;
+const math_1 = __webpack_require__(517);
+const defaultOffset = 5;
+const defaultIntensity = 10;
+const defaultSizeModifier = 1;
+const defaultInvertChance = 0.15;
+const minDimensionFraction = 0.25;
+const minRectangularity = 1.5;
+const global = ({ data, width, height }, options = null) => __awaiter(void 0, void 0, void 0, function* () {
+    const { offset = defaultOffset, intensity = defaultIntensity, sizeModifier = defaultSizeModifier, invertChance = defaultInvertChance } = (options || {});
+    const newData = new Uint8Array(data);
+    const numRects = intensity;
+    const baseRectDim = (0, math_1.floor)((0, math_1.max)(20, (0, math_1.min)(width, height) / 10) * sizeModifier);
+    for (let i = 0; i < numRects; i++) {
+        let rectWidth, rectHeight;
+        do {
+            rectWidth = (0, math_1.floor)(minDimensionFraction * baseRectDim + (0, math_1.random)() * (1 - minDimensionFraction) * baseRectDim);
+            rectHeight = (0, math_1.floor)(minDimensionFraction * baseRectDim + (0, math_1.random)() * (1 - minDimensionFraction) * baseRectDim);
+        } while ((0, math_1.max)(rectWidth, rectHeight) / (0, math_1.min)(rectWidth, rectHeight) < minRectangularity);
+        const rectX = (0, math_1.floor)((0, math_1.random)() * (width - rectWidth));
+        const rectY = (0, math_1.floor)((0, math_1.random)() * (height - rectHeight));
+        const displacementX = (0, math_1.floor)(((0, math_1.random)() - 0.5) * 2 * offset);
+        const displacementY = (0, math_1.floor)(((0, math_1.random)() - 0.5) * 2 * offset);
+        const brightness = 5 + (0, math_1.floor)((0, math_1.random)() * 15) * ((0, math_1.random)() > 0.5 ? 1 : -1);
+        const invertColors = (0, math_1.random)() < invertChance;
+        for (let y = rectY; y < rectY + rectHeight; y++) {
+            for (let x = rectX; x < rectX + rectWidth; x++) {
+                const origIndex = (y * width + x) * 4;
+                const displacedIndex = (((y + displacementY + height) % height) * width + ((x + displacementX + width) % width)) * 4;
+                for (let j = 0; j < 3; j++) {
+                    let adjustedPixel = data[displacedIndex + j] + brightness;
+                    if (invertColors) {
+                        adjustedPixel = 255 - adjustedPixel;
+                    }
+                    adjustedPixel = (0, math_1.max)(0, (0, math_1.min)(255, adjustedPixel));
+                    if (invertColors && adjustedPixel < 50) {
+                        continue;
+                    }
+                    newData[origIndex + j] = adjustedPixel;
+                }
+                newData[origIndex + 3] = data[displacedIndex + 3];
+            }
+        }
+    }
+    return newData;
+});
+const rectangles = {
+    name: 'rectangles',
+    browser: global,
+    node: global
+};
+exports.rectangles = rectangles;
+
+
+/***/ }),
+
+/***/ 186:
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __exportStar = (this && this.__exportStar) || function(m, exports) {
+    for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+__exportStar(__webpack_require__(449), exports);
+__exportStar(__webpack_require__(61), exports);
+
+
+/***/ }),
+
+/***/ 61:
+/***/ (function(__unused_webpack_module, exports) {
+
+
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.degrade = void 0;
+const defaultQuality = 0.075;
+const browser = ({ data, width, height }, options = null) => __awaiter(void 0, void 0, void 0, function* () {
+    const { quality = defaultQuality } = (options || {});
+    const globalScope = typeof window !== 'undefined' ? window : self;
+    const canvas = new OffscreenCanvas(width, height);
+    const context = canvas.getContext('2d');
+    if (!context) {
+        throw new Error('Failed to obtain context');
+    }
+    const imageData = new ImageData(new Uint8ClampedArray(data.buffer), width, height);
+    context.putImageData(imageData, 0, 0);
+    const degradedBlob = yield canvas.convertToBlob({
+        type: 'image/jpeg', quality
+    });
+    const imageBitmap = yield globalScope.createImageBitmap(degradedBlob);
+    context.clearRect(0, 0, canvas.width, canvas.height);
+    context.drawImage(imageBitmap, 0, 0);
+    const degradedImageData = context.getImageData(0, 0, width, height);
+    return new Uint8Array(degradedImageData.data.buffer);
+});
+const degrade = {
+    name: 'degrade',
+    browser: browser
+};
+exports.degrade = degrade;
+
+
+/***/ }),
+
+/***/ 449:
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.pixelate = void 0;
+const helpers_1 = __webpack_require__(513);
+const defaultIntensity = 8;
+const browser = ({ data, width, height }, options = null) => __awaiter(void 0, void 0, void 0, function* () {
+    const { intensity = defaultIntensity } = (options || {});
+    const canvas = new OffscreenCanvas(width, height);
+    const context = canvas.getContext('2d');
+    const imgData = new ImageData(new Uint8ClampedArray(data), width, height);
+    context === null || context === void 0 ? void 0 : context.putImageData(imgData, 0, 0);
+    const pCanvas = new OffscreenCanvas(width, height);
+    const pContext = pCanvas.getContext('2d');
+    if (!context || !pContext) {
+        throw new Error('Failed to obtain context');
+    }
+    pContext.imageSmoothingEnabled = false;
+    pContext.drawImage(canvas, 0, 0, width / intensity, height / intensity);
+    pContext.drawImage(pCanvas, 0, 0, width / intensity, height / intensity, 0, 0, width, height);
+    const pixelatedData = pContext.getImageData(0, 0, width, height).data;
+    return (0, helpers_1.removeAlphaChannel)(new Uint8Array(pixelatedData.buffer));
+});
+const pixelate = {
+    name: 'pixelate',
+    browser: browser
+};
+exports.pixelate = pixelate;
+
+
+/***/ }),
+
+/***/ 564:
+/***/ ((__unused_webpack_module, exports) => {
+
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.arrayPick = void 0;
+const arrayPick = (array) => {
+    return array[Math.floor(Math.random() * array.length)];
+};
+exports.arrayPick = arrayPick;
+
+
+/***/ }),
+
+/***/ 513:
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __exportStar = (this && this.__exportStar) || function(m, exports) {
+    for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+__exportStar(__webpack_require__(749), exports);
+__exportStar(__webpack_require__(564), exports);
+__exportStar(__webpack_require__(380), exports);
+__exportStar(__webpack_require__(627), exports);
+
+
+/***/ }),
+
+/***/ 380:
+/***/ ((__unused_webpack_module, exports) => {
+
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.isBrowser = void 0;
+const isBrowser = () => {
+    return typeof self !== 'undefined' || typeof window !== 'undefined';
+};
+exports.isBrowser = isBrowser;
+
+
+/***/ }),
+
+/***/ 749:
+/***/ ((__unused_webpack_module, exports) => {
+
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.randomize = void 0;
+const randomize = (min, max) => {
+    return Math.floor(Math.random() * (max - min + 1) + min);
+};
+exports.randomize = randomize;
+
+
+/***/ }),
+
+/***/ 627:
+/***/ ((__unused_webpack_module, exports) => {
+
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.removeAlphaChannel = void 0;
+const removeAlphaChannel = (data) => {
+    for (let i = 0; i < data.length; i += 4) {
+        data[i + 3] = 255;
+    }
+    return data;
+};
+exports.removeAlphaChannel = removeAlphaChannel;
+
+
+/***/ }),
+
+/***/ 433:
+/***/ (function(__unused_webpack_module, exports) {
+
+
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.bufferToBlob = void 0;
+const bufferToBlob = ({ data, width, height }) => __awaiter(void 0, void 0, void 0, function* () {
+    const canvas = new OffscreenCanvas(width, height);
+    const context = canvas.getContext('2d');
+    const clampedArray = new Uint8ClampedArray(data.buffer);
+    const imageData = new ImageData(clampedArray, width, height);
+    context === null || context === void 0 ? void 0 : context.putImageData(imageData, 0, 0);
+    return canvas.convertToBlob().then((blob) => {
+        if (blob) {
+            return URL.createObjectURL(blob);
+        }
+        else {
+            throw new Error('Failed to create Blob from canvas image');
+        }
+    });
+});
+exports.bufferToBlob = bufferToBlob;
+
+
+/***/ }),
+
+/***/ 208:
+/***/ (function(__unused_webpack_module, exports) {
+
+
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.fileToBuffer = void 0;
+const fileToBuffer = (file) => __awaiter(void 0, void 0, void 0, function* () {
+    return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => __awaiter(void 0, void 0, void 0, function* () {
+            const arrayBuffer = reader.result;
+            const blob = new Blob([arrayBuffer]);
+            const imageBitmap = yield createImageBitmap(blob);
+            const canvas = new OffscreenCanvas(imageBitmap.width, imageBitmap.height);
+            const context = canvas.getContext('2d');
+            if (context) {
+                context.drawImage(imageBitmap, 0, 0, imageBitmap.width, imageBitmap.height);
+                const imageData = context.getImageData(0, 0, imageBitmap.width, imageBitmap.height);
+                resolve([
+                    new Uint8Array(imageData.data.buffer),
+                    imageBitmap.width,
+                    imageBitmap.height
+                ]);
+            }
+            else {
+                reject(new Error('Failed to get context'));
+            }
+        });
+        reader.onerror = () => {
+            reject(new Error('Failed to read file'));
+        };
+        reader.readAsArrayBuffer(file);
+    });
+});
+exports.fileToBuffer = fileToBuffer;
+
+
+/***/ }),
+
+/***/ 532:
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
+};
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.bufferToBlob = exports.useMode = exports.useEffect = exports.getRandomEffect = exports.getRandomMode = exports.listEffects = exports.listModes = exports.stage = void 0;
+const helpers_1 = __webpack_require__(513);
+const urlToBuffer_1 = __webpack_require__(468);
+const global_1 = __webpack_require__(951);
+const fileToBuffer_1 = __webpack_require__(208);
+const bufferToBlob_1 = __webpack_require__(433);
+Object.defineProperty(exports, "bufferToBlob", ({ enumerable: true, get: function () { return bufferToBlob_1.bufferToBlob; } }));
+const modes = __importStar(__webpack_require__(961));
+const browser_1 = __webpack_require__(295);
+const stage = ({ data, url }) => __awaiter(void 0, void 0, void 0, function* () {
+    let [buffer, width, height] = [null, 0, 0];
+    if (data) {
+        if (data instanceof File) {
+            [buffer, width, height] = (yield (0, fileToBuffer_1.fileToBuffer)(data));
+        }
+        else if (Array.isArray(data) && data[0] instanceof Uint8Array) {
+            [buffer, width, height] = [...data];
+        }
+    }
+    else if (url && typeof url === 'string') {
+        [buffer, width, height] = (yield (0, urlToBuffer_1.urlToBuffer)(url));
+    }
+    if (!buffer || !width || !height) {
+        throw new Error('Failed to load image data');
+    }
+    return { data: buffer, width, height };
+});
+exports.stage = stage;
+const listModes = () => {
+    return Object.keys(modes);
+};
+exports.listModes = listModes;
+const listEffects = () => {
+    return Object.keys(browser_1.effectPool);
+};
+exports.listEffects = listEffects;
+const getRandomMode = () => {
+    return (0, helpers_1.arrayPick)(Object.keys(modes));
+};
+exports.getRandomMode = getRandomMode;
+const getRandomEffect = () => {
+    return (0, helpers_1.arrayPick)(Object.keys(browser_1.effectPool));
+};
+exports.getRandomEffect = getRandomEffect;
+const useEffect = ({ data, width, height }, effect, options) => __awaiter(void 0, void 0, void 0, function* () {
+    return (0, global_1.useEffect)({ data, width, height }, browser_1.effectPool, effect, options);
+});
+exports.useEffect = useEffect;
+const useMode = ({ data, width, height }, mode) => __awaiter(void 0, void 0, void 0, function* () {
+    return (0, global_1.useMode)({ data, width, height }, browser_1.effectPool, mode);
+});
+exports.useMode = useMode;
+
+
+/***/ }),
+
+/***/ 468:
+/***/ (function(__unused_webpack_module, exports) {
+
+
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.urlToBuffer = void 0;
+const urlToBuffer = (url) => __awaiter(void 0, void 0, void 0, function* () {
+    const response = yield fetch(url);
+    const imageBlob = yield response.blob();
+    const imageBitmap = yield createImageBitmap(imageBlob);
+    const canvas = new OffscreenCanvas(imageBitmap.width, imageBitmap.height);
+    const context = canvas.getContext('2d');
+    if (context) {
+        context.drawImage(imageBitmap, 0, 0, imageBitmap.width, imageBitmap.height);
+        const imageData = context.getImageData(0, 0, imageBitmap.width, imageBitmap.height);
+        return [
+            new Uint8Array(imageData.data.buffer),
+            imageBitmap.width,
+            imageBitmap.height
+        ];
+    }
+    throw new Error('Failed to get context');
+});
+exports.urlToBuffer = urlToBuffer;
+
+
+/***/ }),
+
+/***/ 858:
+/***/ (function(__unused_webpack_module, exports) {
+
+
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.applyEffect = void 0;
+const getEffect = (effectPool, effect) => {
+    for (let [key, value] of Object.entries(effectPool)) {
+        if (key === effect) {
+            return value;
+        }
+    }
+    return null;
+};
+const applyEffect = ({ data, width, height, effectPool, effect, options = null }) => __awaiter(void 0, void 0, void 0, function* () {
+    return new Promise((resolve, reject) => __awaiter(void 0, void 0, void 0, function* () {
+        try {
+            const buffer = yield getEffect(effectPool, effect)({ data, width, height }, options);
+            if (buffer) {
+                resolve({ data: buffer, width, height });
+            }
+            else {
+                reject('Buffer is null');
+            }
+        }
+        catch (error) {
+            reject(error);
+        }
+    }));
+});
+exports.applyEffect = applyEffect;
+
+
+/***/ }),
+
+/***/ 221:
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
+};
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.applyMode = void 0;
+const modes = __importStar(__webpack_require__(961));
+const getMode = (mode) => {
+    for (let [key, value] of Object.entries(modes)) {
+        if (key === mode) {
+            return value;
+        }
+    }
+    return null;
+};
+const applyMode = ({ data, width, height, mode, effectPool }) => __awaiter(void 0, void 0, void 0, function* () {
+    return new Promise((resolve, reject) => __awaiter(void 0, void 0, void 0, function* () {
+        try {
+            const buffer = yield getMode(mode)({ data, width, height, effects: effectPool });
+            resolve({ data: buffer, width, height });
+        }
+        catch (error) {
+            reject(error);
+        }
+    }));
+});
+exports.applyMode = applyMode;
+
+
+/***/ }),
+
+/***/ 111:
+/***/ (function(__unused_webpack_module, exports) {
+
+
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.blobToBuffer = void 0;
+const blobToBuffer = (blob, width, height) => __awaiter(void 0, void 0, void 0, function* () {
+    const imageBitmap = yield createImageBitmap(blob);
+    const offscreenCanvas = new OffscreenCanvas(width, height);
+    const context = offscreenCanvas.getContext('2d');
+    if (!context) {
+        throw new Error('Failed to obtain context from `OffscreenCanvas`');
+    }
+    context.drawImage(imageBitmap, 0, 0);
+    const imageData = context.getImageData(0, 0, width, height);
+    return new Uint8Array(imageData.data.buffer);
+});
+exports.blobToBuffer = blobToBuffer;
+
+
+/***/ }),
+
+/***/ 951:
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __exportStar = (this && this.__exportStar) || function(m, exports) {
+    for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+__exportStar(__webpack_require__(111), exports);
+__exportStar(__webpack_require__(236), exports);
+__exportStar(__webpack_require__(831), exports);
+__exportStar(__webpack_require__(221), exports);
+__exportStar(__webpack_require__(858), exports);
+
+
+/***/ }),
+
+/***/ 236:
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.useEffect = void 0;
+const applyEffect_1 = __webpack_require__(858);
+const useEffect = ({ data, width, height }, effectPool, effect, options) => __awaiter(void 0, void 0, void 0, function* () {
+    const effectsToUse = (!Array.isArray(effect) ? [effect] : effect);
+    for (let _effect of effectsToUse) {
+        if (!effectPool[_effect]) {
+            throw new Error(`Invalid effect: ${_effect}`);
+        }
+        const applied = yield (0, applyEffect_1.applyEffect)({ data, width, height, effectPool, effect: _effect, options });
+        [data, width, height] = [applied.data, applied.width, applied.height];
+    }
+    return { data, width, height };
+});
+exports.useEffect = useEffect;
+
+
+/***/ }),
+
+/***/ 831:
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
+};
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.useMode = void 0;
+const applyMode_1 = __webpack_require__(221);
+const modes = __importStar(__webpack_require__(961));
+const useMode = ({ data, width, height }, effectPool, mode) => __awaiter(void 0, void 0, void 0, function* () {
+    const modesToUse = (!Array.isArray(mode) ? [mode] : mode);
+    for (let _mode of modesToUse) {
+        if (!modes.hasOwnProperty(_mode)) {
+            throw new Error(`Invalid mode: ${_mode}`);
+        }
+        const applied = yield (0, applyMode_1.applyMode)({ data, width, height, effectPool, mode: _mode });
+        [data, width, height] = [applied.data, applied.width, applied.height];
+    }
+    return { data, width, height };
+});
+exports.useMode = useMode;
+
+
+/***/ }),
+
+/***/ 53:
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.chimera = void 0;
+const math_1 = __webpack_require__(517);
+const helpers_1 = __webpack_require__(513);
+const weight = [0.25, 0.5];
+const chimera = ({ data, width, height, effects }) => __awaiter(void 0, void 0, void 0, function* () {
+    const algorithm = ({ data, width, height }) => __awaiter(void 0, void 0, void 0, function* () {
+        for (let y = 0; y < height; y++) {
+            for (let x = 0; x < width; x++) {
+                let index = (y * width + x) * 4;
+                let r = data[index], g = data[index + 1], b = data[index + 2];
+                data[index + 0] = (r + g * weight[1] + b * weight[0]);
+                data[index + 1] = (r * weight[1] + g + b * weight[0]);
+                data[index + 2] = (r * weight[0] + g * weight[1] + b);
+            }
+        }
+        return data;
+    });
+    const direction = (0, math_1.random)() >= 0.5 ? 'horizontal' : 'vertical';
+    const intensity = (0, helpers_1.randomize)(5, 10);
+    data = (yield (effects === null || effects === void 0 ? void 0 : effects.blur({ data, width, height }, { direction, intensity }))) || data;
+    data = yield algorithm({ data, width, height });
+    for (let index = 0; index < data.length; index += 4) {
+        const useNoise = (0, math_1.random)() < 0.2;
+        const useGrain = (0, math_1.random)() < 0.4 ? (0, math_1.floor)((0, math_1.random)() * 50) : 0;
+        for (let i = 0; i < 3; i++) {
+            data[index + i] = useNoise ? (0, math_1.min)(data[index + i] + (0, helpers_1.randomize)(1, i === 0 ? 15 : 10), 255) : data[index + i];
+            data[index + i] = (0, math_1.min)(255, (0, math_1.max)(0, data[index + i] + ((0, math_1.floor)((0, math_1.random)() * 20) - 30)));
+            data[index + i] = useGrain ? (0, math_1.min)(255, (0, math_1.max)(0, data[index + i] + useGrain)) : data[index + i];
+        }
+        ;
+    }
+    data = (yield (effects === null || effects === void 0 ? void 0 : effects.rectangles({ data, width, height }, { offset: 10, intensity: 15, sizeModifier: 1.25 }))) || data;
+    return data;
+});
+exports.chimera = chimera;
+
+
+/***/ }),
+
+/***/ 961:
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __exportStar = (this && this.__exportStar) || function(m, exports) {
+    for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+__exportStar(__webpack_require__(53), exports);
+__exportStar(__webpack_require__(450), exports);
+
+
+/***/ }),
+
+/***/ 450:
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.lacunae = void 0;
+const helpers_1 = __webpack_require__(513);
+const math_1 = __webpack_require__(517);
+const lacunae = ({ data }) => __awaiter(void 0, void 0, void 0, function* () {
+    for (let index = 0; index < data.length; index += 4) {
+        const useNoise = (0, math_1.random)() < 0.2;
+        const useGrain = (0, math_1.random)() < 0.4 ? (0, math_1.floor)((0, math_1.random)() * 50) : 0;
+        for (let i = 0; i < 3; i++) {
+            data[index + i] = data[index + i] - (0, helpers_1.randomize)(1, 15);
+            data[index + i] = data[index + i] < 0 ? data[index + i] + 255 : data[index + i];
+            data[index + i] = useNoise ? (0, math_1.min)(data[index + i] + (0, helpers_1.randomize)(1, i === 0 ? 15 : 10), 255) : data[index + i];
+            data[index + i] = (0, math_1.min)(255, (0, math_1.max)(0, data[index + i] + (0, math_1.floor)((0, math_1.random)() * 20 - 40)));
+            data[index + i] = useGrain ? (0, math_1.min)(255, (0, math_1.max)(0, data[index + i] + useGrain)) : data[index + i];
+        }
+        ;
+    }
+    return data;
+});
+exports.lacunae = lacunae;
+
+
+/***/ })
+
+/******/ 	});
+/************************************************************************/
+/******/ 	// The module cache
+/******/ 	var __webpack_module_cache__ = {};
+/******/ 	
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/ 		// Check if module is in cache
+/******/ 		var cachedModule = __webpack_module_cache__[moduleId];
+/******/ 		if (cachedModule !== undefined) {
+/******/ 			return cachedModule.exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = __webpack_module_cache__[moduleId] = {
+/******/ 			// no module.id needed
+/******/ 			// no module.loaded needed
+/******/ 			exports: {}
+/******/ 		};
+/******/ 	
+/******/ 		// Execute the module function
+/******/ 		__webpack_modules__[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+/******/ 	
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/ 	
+/************************************************************************/
+/******/ 	
+/******/ 	// startup
+/******/ 	// Load entry module and return exports
+/******/ 	// This entry module is referenced by other modules so it can't be inlined
+/******/ 	var __webpack_exports__ = __webpack_require__(532);
+/******/ 	
+/******/ 	return __webpack_exports__;
+/******/ })()
+;
+});
