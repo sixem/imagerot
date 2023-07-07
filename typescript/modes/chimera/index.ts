@@ -4,13 +4,11 @@ import { TMode, IBufferHandlerParams } from '../../types';
 
 const weight: [number, number] = [0.25, 0.5];
 
-type TAlgorithmHandler = (params: IBufferHandlerParams & {
-    weight?: [number, number];
-}) => Promise<Uint8Array>;
+type TAlgorithmHandler = (params: IBufferHandlerParams) => Promise<Uint8Array>;
 
 const chimera: TMode = async ({ data, width, height, effects }) =>
 {
-    const algorithm: TAlgorithmHandler = async ({ data, width, height, weight = [0.25, 0.5] }) =>
+    const algorithm: TAlgorithmHandler = async ({ data, width, height }) =>
     {
         for (let y = 0; y < height; y++)
         {
@@ -35,7 +33,7 @@ const chimera: TMode = async ({ data, width, height, effects }) =>
     const intensity = randomize(5, 10);
 
     data = await effects?.blur({ data, width, height }, { direction, intensity }) || data;
-    data = await algorithm({ data, width, height, weight });
+    data = await algorithm({ data, width, height });
 
     for (let index = 0; index < data.length; index += 4)
     {
@@ -50,11 +48,9 @@ const chimera: TMode = async ({ data, width, height, effects }) =>
         };
     }
 
-    data = await effects?.rectangles({ data, width, height }, { offset: 45, intensity: 20 }) || data;
+    data = await effects?.rectangles({ data, width, height }, { offset: 10, intensity: 15, sizeModifier: 1.25 }) || data;
 
     return data;
 };
 
-export {
-    chimera
-};
+export { chimera };
