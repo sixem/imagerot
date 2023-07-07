@@ -5,29 +5,26 @@ const fileToBuffer = async (file: File): Promise<IRotData> => {
         const reader = new FileReader();
 
         reader.onload = async () => {
-            const imageLoadPromise: Promise<HTMLImageElement> = new Promise((resolve, reject) => {
-                const image = new Image();
-        
-                image.onload = () => resolve(image);
-                image.onerror = reject;
-                image.src = URL.createObjectURL(file);
-            });
+            const arrayBuffer = reader.result as ArrayBuffer;
+            const blob = new Blob([arrayBuffer]);
 
-            const image = await imageLoadPromise;
+            const imageBitmap = await createImageBitmap(blob);
 
-            const canvas = new OffscreenCanvas(image.width, image.height);
+            const canvas = new OffscreenCanvas(imageBitmap.width, imageBitmap.height);
             const context = canvas.getContext('2d');
 
-            context?.drawImage(image, 0, 0, image.width, image.height);
-            const imageData = context?.getImageData(0, 0, image.width, image.height);
+            if(context) {
+                context.drawImage(imageBitmap, 0, 0, imageBitmap.width, imageBitmap.height);
+                const imageData = context.getImageData(0, 0, imageBitmap.width, imageBitmap.height);
 
-            URL.revokeObjectURL(image.src);
-
-            resolve([
-                imageData ? new Uint8Array(imageData.data.buffer) : null,
-                image.width || 0,
-                image.height || 0
-            ]);
+                resolve([
+                    new Uint8Array(imageData.data.buffer),
+                    imageBitmap.width,
+                    imageBitmap.height
+                ]);
+            } else {
+                reject(new Error('Failed to get context'));
+            }
         };
 
         reader.onerror = () => {

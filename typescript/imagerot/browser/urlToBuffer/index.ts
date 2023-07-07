@@ -2,29 +2,23 @@ const urlToBuffer = async (url: string): Promise<[Uint8Array | null, number, num
     const response = await fetch(url);
     const imageBlob = await response.blob();
 
-    const imageLoadPromise: Promise<HTMLImageElement> = new Promise((resolve, reject) => {
-        const image = new Image();
+    const imageBitmap = await createImageBitmap(imageBlob);
 
-        image.onload = () => resolve(image);
-        image.onerror = reject;
-        image.src = URL.createObjectURL(imageBlob);
-    });
-
-    const image = await imageLoadPromise;
-
-    const canvas = new OffscreenCanvas(image.width, image.height);
+    const canvas = new OffscreenCanvas(imageBitmap.width, imageBitmap.height);
     const context = canvas.getContext('2d');
 
-    context?.drawImage(image, 0, 0, image.width, image.height);
-    const imageData = context?.getImageData(0, 0, image.width, image.height);
+    if(context) {
+        context.drawImage(imageBitmap, 0, 0, imageBitmap.width, imageBitmap.height);
+        const imageData = context.getImageData(0, 0, imageBitmap.width, imageBitmap.height);
 
-    URL.revokeObjectURL(image.src);
-
-    return [
-        imageData ? new Uint8Array(imageData.data.buffer) : null,
-        image.width || 0,
-        image.height || 0
-    ];
+        return [
+            new Uint8Array(imageData.data.buffer),
+            imageBitmap.width,
+            imageBitmap.height
+        ];
+    }
+    
+    throw new Error('Failed to get context');
 };
 
 export { urlToBuffer };
