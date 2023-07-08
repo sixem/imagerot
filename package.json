@@ -13,6 +13,10 @@
   "license": "GPL 3.0",
   "main": "./lib/imagerot/node/index.js",
   "types": "./lib/imagerot/node/index.d.ts",
+  "exports": {
+    ".": "./lib/imagerot/node/index.js",
+    "./browser": "./lib/imagerot/browser/index.js"
+  },
   "devDependencies": {
     "cross-env": "^7.0.3",
     "ts-loader": "^9.4.4",
