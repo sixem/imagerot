@@ -1,7 +1,7 @@
 import { TEffectItem, TEffectExport } from '../../../types';
 
 type TEffectOptions = {
-    direction: string,
+    direction?: 'horizontal' | 'vertical';
     intensity?: number
 };
 
@@ -16,11 +16,7 @@ const global: TEffectItem = async ({ data, width, height }, options = null) => {
     for(let y = 0; y < height; y++) {
         for(let x = 0; x < width; x++) {
             let index = (y * width + x) * 4;
-
-            let sumR = 0,
-                sumG = 0,
-                sumB = 0,
-                count = 0;
+            let sumR = 0, sumG = 0, sumB = 0, count = 0;
 
             for(let i = 1; i <= intensity; i++) {
                 if(direction === 'horizontal') {

@@ -1,10 +1,10 @@
 import { random, floor, min, max } from '../../constants/math';
 import { randomize } from '../../helpers';
-import { TMode, IBufferHandlerParams } from '../../types';
+import { TMode, IRotItem } from '../../types';
 
 const weight: [number, number] = [0.25, 0.5];
 
-type TAlgorithmHandler = (params: IBufferHandlerParams) => Promise<Uint8Array>;
+type TAlgorithmHandler = (params: IRotItem) => Promise<Uint8Array>;
 
 const chimera: TMode = async ({ data, width, height, effects }) =>
 {

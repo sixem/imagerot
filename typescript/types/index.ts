@@ -1,45 +1,54 @@
-interface IBufferHandlerParams {
+// Staged return type
+interface IRotItem {
     data: Uint8Array;
     width: number;
     height: number;
 };
 
-type TBufferHandler = (params: IBufferHandlerParams) => Promise<Uint8Array>;
+// Staging method
+type TRotHandler = (params: IRotParams) => Promise<IRotItem>;
 
+// Staging params
 interface IRotParams {
-    data?: Uint8Array | Object | Buffer | File | [Uint8Array, number, number];
+    data?: Buffer | File | [Uint8Array, number, number];
     url?: string;
 };
 
+// Staged data
 type IRotData = [Uint8Array | null, number, number];
 
-type TRotHandler = (params: IRotParams) => Promise<IBufferHandlerParams>;
-
+// Effect options
 type TEffectOptions = {
     [key: string]: string | number,
 };
 
-type TEffectItem = (params: IBufferHandlerParams, options?: TEffectOptions | null) => Promise<Uint8Array | null>;
-
+// Browser-targeted effect
 type TEffectItemBrowser = {
     name: string;
     browser: TEffectItem;
 };
 
+// Node-targeted effect
 type TEffectItemNode = {
     name: string;
     node: TEffectItem;
 };
 
+// Common effect
 type TEffectItemShared = {
     name: string;
     browser: TEffectItem;
     node: TEffectItem;
 };
 
+// Exportable effect
 type TEffectExport = TEffectItemBrowser | TEffectItemNode | TEffectItemShared;
 
-type TMode = (params: IBufferHandlerParams & {
+// Effect method
+type TEffectItem = (params: IRotItem, options?: TEffectOptions | null) => Promise<Uint8Array | null>;
+
+// Mode method
+type TMode = (params: IRotItem & {
     effects?: {
         [key: string]: TEffectItem
     }
@@ -51,10 +60,9 @@ export {
     TEffectExport,
     TEffectItemNode,
     TEffectItemBrowser,
-    TBufferHandler,
-    IBufferHandlerParams,
-    TMode,
+    IRotItem,
     TRotHandler,
     IRotParams,
-    IRotData
+    IRotData,
+    TMode
 };

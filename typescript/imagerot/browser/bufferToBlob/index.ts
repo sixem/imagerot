@@ -1,6 +1,6 @@
-import { IBufferHandlerParams } from '../../../types';
+import { IRotItem } from '../../../types';
 
-type TBufferToBlobHandler = (params: IBufferHandlerParams) => Promise<string>;
+type TBufferToBlobHandler = (params: IRotItem) => Promise<string>;
 
 const bufferToBlob: TBufferToBlobHandler = async ({ data, width, height }) => {
     const canvas = new OffscreenCanvas(width, height);

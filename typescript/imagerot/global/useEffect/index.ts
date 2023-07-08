@@ -1,7 +1,7 @@
-import { IBufferHandlerParams, TEffectOptions, TEffectItem } from '../../../types';
+import { IRotItem, TEffectOptions, TEffectItem } from '../../../types';
 import { applyEffect } from '../applyEffect';
 
-const useEffect = async ({ data, width, height }: IBufferHandlerParams, effectPool: {
+const useEffect = async ({ data, width, height }: IRotItem, effectPool: {
     [key: string]: TEffectItem
 }, effect: string | string[], options: TEffectOptions) => {
     const effectsToUse = (!Array.isArray(effect) ? [effect] : effect);

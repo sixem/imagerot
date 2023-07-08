@@ -1,8 +1,8 @@
-import { IBufferHandlerParams, TEffectItem } from '../../../types';
+import { IRotItem, TEffectItem } from '../../../types';
 import { applyMode } from '../applyMode';
 import * as modes from '../../../modes';
 
-const useMode = async ({ data, width, height }: IBufferHandlerParams, effectPool: {
+const useMode = async ({ data, width, height }: IRotItem, effectPool: {
     [key: string]: TEffectItem
 }, mode: string | string[]) => {
     const modesToUse = (!Array.isArray(mode) ? [mode] : mode);

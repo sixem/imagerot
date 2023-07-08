@@ -1,12 +1,12 @@
-import { TMode, IBufferHandlerParams, TEffectItem } from '../../../types';
+import { TMode, IRotItem, TEffectItem } from '../../../types';
 import * as modes from '../../../modes';
 
-type TApplyModeHandler = (params: IBufferHandlerParams & {
+type TApplyModeHandler = (params: IRotItem & {
     mode: string;
     effectPool: {
         [key: string]: TEffectItem
     }
-}) => Promise<IBufferHandlerParams>;
+}) => Promise<IRotItem>;
 
 const getMode = (mode: string): TMode | null =>
 {

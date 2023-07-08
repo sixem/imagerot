@@ -1,4 +1,6 @@
-const urlToBuffer = async (url: string): Promise<[Uint8Array | null, number, number]> => {
+import { IRotData } from '../../../types';
+
+const urlToBuffer = async (url: string): Promise<IRotData> => {
     const response = await fetch(url);
     const imageBlob = await response.blob();
 

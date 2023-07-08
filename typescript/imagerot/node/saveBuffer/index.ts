@@ -1,12 +1,12 @@
 import fs from 'fs/promises';
 import { createCanvas } from 'canvas';
-import { IBufferHandlerParams } from '../../../types';
+import { IRotItem } from '../../../types';
 
 type TSaveBufferConf = {
     mime?: string;
 };
 
-type TSaveBuffer = (params: IBufferHandlerParams, path: string, config?: TSaveBufferConf | null) => Promise<void>;
+type TSaveBuffer = (params: IRotItem, path: string, config?: TSaveBufferConf | null) => Promise<void>;
 
 const saveBuffer: TSaveBuffer = async ({ data, width, height }, path, config = null) =>
 {

@@ -1,12 +1,12 @@
-import { TEffectItem, TEffectOptions, IBufferHandlerParams } from '../../../types';
+import { TEffectItem, TEffectOptions, IRotItem } from '../../../types';
 
-type TApplyEffectHandler = (params: IBufferHandlerParams & {
+type TApplyEffectHandler = (params: IRotItem & {
     effectPool: {
         [key: string]: TEffectItem
     };
     effect: string;
     options?: TEffectOptions;
-}) => Promise<IBufferHandlerParams>;
+}) => Promise<IRotItem>;
 
 const getEffect = (effectPool: { [key: string]: TEffectItem }, effect: string): TEffectItem | null => {
     for(let [key, value] of Object.entries(effectPool)) {
