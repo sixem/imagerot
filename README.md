@@ -39,6 +39,11 @@ Import the package:
 import imagerot from 'imagerot';
 ```
 
+If you are targeting the browser, you can also use:
+```js
+import imagerot from 'imagerot/browser';
+```
+
 ## Example Usage
 The basic usage is the same in Node as it is in the browser.
 

@@ -8,9 +8,11 @@
       "moduleResolution": "node",
       "esModuleInterop": true,
       "skipLibCheck": true,
-      "forceConsistentCasingInFileNames": true
+      "forceConsistentCasingInFileNames": true,
+      "declaration": true
   },
   "include": [
-      "typescript/imagerot/node/index.ts"
+      "typescript/imagerot/node/index.ts",
+      "typescript/imagerot/browser/index.ts"
   ]
 }
