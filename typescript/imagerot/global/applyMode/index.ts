@@ -1,10 +1,10 @@
-import { TMode, IRotItem, TEffectItem } from '../../../types';
+import { TMode, IRotItem, TEffectPoolItem } from '../../../types';
 import * as modes from '../../../modes';
 
 type TApplyModeHandler = (params: IRotItem & {
     mode: string;
     effectPool: {
-        [key: string]: TEffectItem
+        [key: string]: TEffectPoolItem
     }
 }) => Promise<IRotItem>;
 

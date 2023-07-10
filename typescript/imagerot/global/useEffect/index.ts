@@ -1,8 +1,8 @@
-import { IRotItem, TEffectOptions, TEffectItem } from '../../../types';
+import { IRotItem, TEffectOptions, TEffectPoolItem } from '../../../types';
 import { applyEffect } from '../applyEffect';
 
 const useEffect = async ({ data, width, height }: IRotItem, effectPool: {
-    [key: string]: TEffectItem
+    [key: string]: TEffectPoolItem
 }, effect: string | string[], options: TEffectOptions) => {
     const effectsToUse = (!Array.isArray(effect) ? [effect] : effect);
 

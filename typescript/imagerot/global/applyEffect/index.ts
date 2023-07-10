@@ -1,17 +1,17 @@
-import { TEffectItem, TEffectOptions, IRotItem } from '../../../types';
+import { TEffectItem, TEffectOptions, IRotItem, TEffectPoolItem } from '../../../types';
 
 type TApplyEffectHandler = (params: IRotItem & {
     effectPool: {
-        [key: string]: TEffectItem
+        [key: string]: TEffectPoolItem;
     };
     effect: string;
     options?: TEffectOptions;
 }) => Promise<IRotItem>;
 
-const getEffect = (effectPool: { [key: string]: TEffectItem }, effect: string): TEffectItem | null => {
+const getEffect = (effectPool: { [key: string]: TEffectPoolItem }, effect: string): TEffectItem | null => {
     for(let [key, value] of Object.entries(effectPool)) {
         if(key === effect) {
-            return value;
+            return value.method;
         }
     }
     return null;

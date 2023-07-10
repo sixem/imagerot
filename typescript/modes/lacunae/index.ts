@@ -2,10 +2,8 @@ import { TMode } from '../../types';
 import { randomize } from '../../helpers';
 import { random, floor, min, max } from '../../constants/math';
 
-const lacunae: TMode = async ({ data }) =>
-{
-    for(let index = 0; index < data.length; index += 4)
-    {
+const lacunae: TMode = async ({ data }) => {
+    for(let index = 0; index < data.length; index += 4) {
         const useNoise = random() < 0.2;
         const useGrain = random() < 0.4 ? floor(random() * 50) : 0;
     

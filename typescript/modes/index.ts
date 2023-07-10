@@ -1,2 +1,3 @@
-export * from './chimera';
-export * from './lacunae';
+export { chimera } from './chimera';
+export { lacunae } from './lacunae';
+export { acid } from './acid';

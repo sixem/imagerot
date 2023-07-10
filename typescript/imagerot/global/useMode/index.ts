@@ -1,9 +1,9 @@
-import { IRotItem, TEffectItem } from '../../../types';
+import { IRotItem, TEffectPoolItem } from '../../../types';
 import { applyMode } from '../applyMode';
 import * as modes from '../../../modes';
 
 const useMode = async ({ data, width, height }: IRotItem, effectPool: {
-    [key: string]: TEffectItem
+    [key: string]: TEffectPoolItem
 }, mode: string | string[]) => {
     const modesToUse = (!Array.isArray(mode) ? [mode] : mode);
 

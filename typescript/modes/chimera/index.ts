@@ -6,19 +6,13 @@ const weight: [number, number] = [0.25, 0.5];
 
 type TAlgorithmHandler = (params: IRotItem) => Promise<Uint8Array>;
 
-const chimera: TMode = async ({ data, width, height, effects }) =>
-{
+const chimera: TMode = async ({ data, width, height, effects }) => {
     const algorithm: TAlgorithmHandler = async ({ data, width, height }) =>
     {
-        for (let y = 0; y < height; y++)
-        {
-            for (let x = 0; x < width; x++)
-            {
+        for (let y = 0; y < height; y++) {
+            for (let x = 0; x < width; x++) {
                 let index = (y * width + x) * 4;
-
-                let r = data[index],
-                    g = data[index + 1],
-                    b = data[index + 2];
+                let r = data[index], g = data[index + 1], b = data[index + 2];
 
                 data[index + 0] = (r + g * weight[1] + b * weight[0]);
                 data[index + 1] = (r * weight[1] + g + b * weight[0]);
@@ -32,23 +26,21 @@ const chimera: TMode = async ({ data, width, height, effects }) =>
     const direction = random() >= 0.5 ? 'horizontal' : 'vertical';
     const intensity = randomize(5, 10);
 
-    data = await effects?.blur({ data, width, height }, { direction, intensity }) || data;
+    data = await effects.blur.method({ data, width, height }, { direction, intensity }) || data;
     data = await algorithm({ data, width, height });
 
-    for (let index = 0; index < data.length; index += 4)
-    {
+    for (let index = 0; index < data.length; index += 4) {
         const useNoise = random() < 0.2;
         const useGrain = random() < 0.4 ? floor(random() * 50) : 0;
 
-        for(let i = 0; i < 3; i++)
-        {
+        for(let i = 0; i < 3; i++) {
             data[index + i] = useNoise ? min(data[index + i] + randomize(1, i === 0 ? 15 : 10), 255) : data[index + i];
             data[index + i] = min(255, max(0, data[index + i] + (floor(random() * 20) - 30)));
             data[index + i] = useGrain ? min(255, max(0, data[index + i] + useGrain)) : data[index + i];
         };
     }
 
-    data = await effects?.rectangles({ data, width, height }, { offset: 10, intensity: 15, sizeModifier: 1.25 }) || data;
+    data = await effects.rectangles.method({ data, width, height }, { offset: 10, intensity: 15, sizeModifier: 1.25 }) || data;
 
     return data;
 };

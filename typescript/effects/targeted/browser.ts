@@ -1,2 +1,2 @@
-export * from './pixelate/browser';
-export * from './degrade/browser';
+export { pixelate } from './pixelate/browser';
+export { degrade }  from './degrade/browser';

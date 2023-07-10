@@ -1,2 +1,2 @@
-export * from './pixelate/node';
-export * from './degrade/node';
+export { pixelate } from './pixelate/node';
+export { degrade } from './degrade/node';

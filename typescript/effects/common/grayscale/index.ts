@@ -9,16 +9,16 @@ const defaultIntensity = 1;
 const global: TEffectItem = async ({ data }, options = null) => {
     const { intensity = defaultIntensity } = (options || {}) as TEffectOptions;
 
-    let grayData = new Uint8Array(data);
-
     for (let i = 0; i < data.length; i += 4) {
-        let gray = intensity * (0.299 * Number(data[i]) + 0.587 * Number(data[i+1]) + 0.114 * Number(data[i+2]));
-        gray = Math.min(255, gray);
-        grayData[i] = grayData[i + 1] = grayData[i + 2] = gray;
-        grayData[i + 3] = data[i + 3];
+        let r = data[i], g = data[i + 1], b = data[i + 2];
+        let gray = 0.299 * r + 0.587 * g + 0.114 * b;
+
+        data[i] = r * (1 - intensity) + gray * intensity;
+        data[i + 1] = g * (1 - intensity) + gray * intensity;
+        data[i + 2] = b * (1 - intensity) + gray * intensity;
     }
 
-    return grayData;
+    return data;
 };
 
 const grayscale: TEffectExport = {
