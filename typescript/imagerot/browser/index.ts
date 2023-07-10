@@ -2,11 +2,12 @@ import { urlToBuffer } from './urlToBuffer';
 import { useEffect as _useEffect, useMode as _useMode } from '../global';
 import { fileToBuffer } from './fileToBuffer';
 import { bufferToBlob } from './bufferToBlob';
+import { hsvToRgb, rgbToHsv } from '../../helpers';
 
 import * as modes from '../../modes';
 import { effectPool } from '../../effects/browser';
 
-import { TRotHandler, IRotData } from '../../types';
+import { TRotHandler, IRotData, IRotItem } from '../../types';
 
 type TUseEffect = Parameters<typeof _useEffect>;
 type TUseMode = Parameters<typeof _useMode>;
@@ -19,6 +20,11 @@ export const stage: TRotHandler = async ({ data, url }) => {
             [buffer, width, height] = await fileToBuffer(data) as IRotData;
         } else if(Array.isArray(data) && data[0] instanceof Uint8Array) {
             [buffer, width, height] = [...data];
+        } else if(typeof data === 'object') {
+            let preStaged = data as IRotItem;
+            if(preStaged.data instanceof Uint8Array && preStaged.width && preStaged.height) {
+                [buffer, width, height] = [preStaged.data, preStaged.width, preStaged.height];
+            }
         }
     } else if(url && typeof url === 'string') {
         [buffer, width, height] = await urlToBuffer(url) as IRotData;
@@ -47,4 +53,10 @@ export const useMode = async ({ data, width, height }: TUseMode[0], mode: TUseMo
     return _useMode({ data, width, height }, effectPool, mode);
 };
 
-export { bufferToBlob, fileToBuffer, urlToBuffer };
+export {
+    bufferToBlob,
+    fileToBuffer,
+    urlToBuffer,
+    hsvToRgb,
+    rgbToHsv
+};
