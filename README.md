@@ -21,7 +21,7 @@ Check out the [Web UI](https://five.sh/imagerot/) if you want to test out differ
 * Built with an emphasis on lightness, the package requires zero dependencies in the browser environment.
 
 ## Packaged Build
-For use in the browser, the easiest way to get started is to use the pre-built source available at `dist/imagerot.min.js`. This file bundles everything you need into a single file.
+For use in the browser, the easiest way to get started is to use the pre-built source available in [dist](/dist/).
 
 Include the script in your HTML `<head/>` tag:
 ```html
@@ -52,12 +52,8 @@ The general workflow consists of staging (preparing) an input, then modifying it
 let staged = await imagerot.stage({
     // This can be a browser File, a pre-staged variable or even a Buffer returned from `fs`
     data: file
-});
-```
-By the way, this also supports URLs:
-```js
-let staged = await imagerot.stage({
-    url: 'https://upload.wikimedia.org/wikipedia/commons/4/42/Shaqi_jrvej.jpg'
+    // URLs are supported too:
+    //url: 'https://upload.wikimedia.org/wikipedia/commons/4/42/Shaqi_jrvej.jpg'
 });
 ```
 To modify the staged variable:

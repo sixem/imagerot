@@ -8,20 +8,20 @@
 # Common Methods
 Contains details about the *common* methods shared between Node and the browser environment
 
-## stage(`params`)
-A utility method that loads image data from a provided `File`, `URL`, or `IRotData`.
+## stage(`data`)
+A method that prepares the image data from a provided `File`, `URL`, `IRotData` or `IRotData`.
 
 ### Returns
 - Type: `Promise<IRotItem>`
-- Resolves with an `IRotItem` object containing the loaded image data.
+- Resolves with an `IRotItem` object containing the prepared image data.
 
 ### Parameters
-| Name    | Type        | Description                                      |
-| ------- | ----------- | ------------------------------------------------ |
-| params  | `{ data?: File \| IRotData, url?: string }` | An object containing either a `data` property (or a `url` property). |
+| Name    | Type        |
+| ------- | ----------- |
+| data  | `{ data?: File \| IRotData \| IRotData, url?: string }` |
 
-## useEffect(`params`, `effect`, `options?`)
-A utility method that applies one or more effects to image data.
+## useEffect(`data`, `effect`, `options?`)
+A method that applies one or more effects to the image data.
 
 ### Returns
 - Type: `Promise<IRotItem>`
@@ -30,12 +30,12 @@ A utility method that applies one or more effects to image data.
 ### Parameters
 | Name    | Type        | Description                                     |
 | ------- | ----------- | ----------------------------------------------- |
-| params  | `IRotItem`  | The image data to transform.                    |
+| data  | `IRotItem`  | The image data to transform.                    |
 | effect  | `string` \| `string[]` | The effect or effects to apply.      |
 | options | `TEffectOptions` | The options for the applied effect(s).     |
 
-## useMode(`{params}`, `mode`)
-A utility method that applies one or more modes (effects) to image data.
+## useMode(`data`, `mode`)
+A method that applies one or more modes (effects) to the image data.
 
 ### Returns
 - Type: `Promise<IRotItem>`
@@ -44,11 +44,11 @@ A utility method that applies one or more modes (effects) to image data.
 ### Parameters
 | Name   | Type        | Description                                    |
 | ------ | ----------- | ---------------------------------------------- |
-| params | `IRotItem`  | The image data to transform.                   |
+| data | `IRotItem`  | The image data to transform.                   |
 | mode   | `string` \| `string[]` | The mode or modes to apply.                |
 
 ## urlToBuffer(`url`)
-A utility method that fetches an image from a URL and converts it into a buffer.
+A method that fetches an image from a URL and converts it into a buffer.
 
 ### Returns
 - Type: `Promise<IRotData>`
@@ -91,17 +91,17 @@ A utility method that converts RGB (Red, Green, Blue) values to HSV (Hue, Satura
 
 ## listModes()
 * #### Returns: `Array` => `string[]`
-Returns a list of the available modes
+Returns a list of the exported modes
 
 ## listEffects()
 * #### Returns: `Array` => `string[]`
-Returns a list of the available effects
+Returns a list of the exported effects
 
 # Targeted Methods (Node)
 Contains details about the methods exclusively exposed to the Node environment
 
-## saveBuffer(`{params}`, `path`, `config?`)
-A utility method that creates an image file from provided raw data.
+## saveBuffer(`data`, `path`, `config?`)
+A method that creates an image file from a provided image data
 
 ### Returns
 - Type: `Promise<void>`
@@ -110,7 +110,7 @@ A utility method that creates an image file from provided raw data.
 ### Parameters
 | Name    | Type                           | Description                                            |
 | ------- | ------------------------------ | -------------------------------------------------------|
-| params  | `IRotItem`                     | An object containing the image data, width, and height.|
+| data  | `IRotItem`                     | An object containing the image data, width, and height.|
 | path    | `string`                       | The path where the image should be saved.              |
 | config? | `TSaveBufferConf` \| `null`    | An optional configuration object for image creation.   |
 
@@ -121,7 +121,7 @@ The optional `config` parameter should be an object with the following propertie
 | mime   | `string`  | The MIME type of the image (default: `'image/png'`). |
 
 ## urlToBuffer(`url`)
-A utility method that fetches an image from a URL and returns its data as a `Uint8Array` along with its width and height.
+A method that fetches an image from a URL and returns its data as a `Uint8Array` along with its width and height.
 
 ### Returns
 - Type: `Promise<IRotData>`
@@ -147,8 +147,8 @@ A utility method that converts a file buffer into a `Uint8Array`.
 # Targeted Methods (Browser)
 Contains details about the methods exclusively exposed to the browser environment
 
-## bufferToBlob(`{params}`)
-A utility method that converts image buffer data into a Blob URL.
+## bufferToBlob(`data`)
+A method that converts image buffer data into a Blob URL.
 
 ### Returns
 - Type: `Promise<string>`
@@ -157,10 +157,22 @@ A utility method that converts image buffer data into a Blob URL.
 ### Parameters
 | Name    | Type        | Description                                            |
 | ------- | ----------- | ------------------------------------------------------ |
-| params  | `IRotItem`  | An object containing the image data, width, and height.|
+| data  | `IRotItem`  | An object containing the image data, width, and height.|
+
+## bufferToBitmap(`data`)
+Converts a buffer into an ImageBitmap object.
+
+### Returns
+- Type: `Promise<ImageBitmap>`
+- A Promise that resolves with an ImageBitmap object that represents the input image data.
+
+### Parameters
+| Name   | Type        | Description                                    |
+| ------ | ----------- | ---------------------------------------------- |
+| data | `IRotItem`  | An object containing the image data, width, and height.|
 
 ## fileToBuffer(`file`)
-A utility method that converts a File object into an image buffer.
+A method that converts a File object into an image buffer.
 
 ### Returns
 - Type: `Promise<IRotData>`
@@ -174,6 +186,18 @@ A utility method that converts a File object into an image buffer.
 # Types
 Contains details about the different types that are used in this documentation
 
+## Interface: `IRotItem`
+An interface representing image data for processing.
+
+### Structure
+The interface has the following properties:
+
+| Property | Type           | Description                       |
+| -------- | -------------- | --------------------------------- |
+| data     | `Uint8Array`   | The raw image data.               |
+| width    | `number`       | The width of the image.           |
+| height   | `number`       | The height of the image.          |
+
 ## Type: `IRotData`
 An immutable tuple representing image data for processing.
 
@@ -186,18 +210,6 @@ The tuple has the following elements:
 | 0     | `Uint8Array` \| `null` | The raw image data in a typed array, or `null`. |
 | 1     | `number`         | The width of the image.                               |
 | 2     | `number`         | The height of the image.                              |
-
-## Interface: `IRotItem`
-An interface representing image data for processing.
-
-### Structure
-The interface has the following properties:
-
-| Property | Type           | Description                       |
-| -------- | -------------- | --------------------------------- |
-| data     | `Uint8Array`   | The raw image data.               |
-| width    | `number`       | The width of the image.           |
-| height   | `number`       | The height of the image.          |
 
 ## Type: `TSaveBufferConf`
 A type representing the configuration for saving a buffer.
