@@ -50,8 +50,8 @@ export const listEffects = () => {
     return Object.keys(effectPool);
 };
 
-export const useEffect = async ({ data, width, height }: TUseEffect[0], effect: TUseEffect[2], options: TUseEffect[3]) => {
-    return _useEffect({ data, width, height }, effectPool, effect, options);
+export const useEffect = async ({ data, width, height }: TUseEffect[0], effect: TUseEffect[2], options?: TUseEffect[3]) => {
+    return _useEffect({ data, width, height }, effectPool, effect, options || {});
 };
 
 export const useMode = async ({ data, width, height }: TUseMode[0], mode: TUseMode[2]) => {

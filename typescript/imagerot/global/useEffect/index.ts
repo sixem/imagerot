@@ -6,12 +6,15 @@ const useEffect = async ({ data, width, height }: IRotItem, effectPool: {
 }, effect: string | string[], options: TEffectOptions) => {
     const effectsToUse = (!Array.isArray(effect) ? [effect] : effect);
 
-    for(let _effect of effectsToUse) {
-        if(!effectPool[_effect]) {
-            throw new Error(`Invalid effect: ${_effect}`);
+    for(let currentEffect of effectsToUse) {
+        if(!effectPool[currentEffect]) {
+            throw new Error(`Invalid effect: ${currentEffect}`);
         }
 
-        const applied = await applyEffect({ data, width, height, effectPool, effect: _effect, options });
+        const applied = await applyEffect({ 
+            data, width, height, effectPool, effect: currentEffect, options
+        });
+        
         [data, width, height] = [applied.data, applied.width, applied.height];
     }
 

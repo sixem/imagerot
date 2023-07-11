@@ -7,12 +7,15 @@ const useMode = async ({ data, width, height }: IRotItem, effectPool: {
 }, mode: string | string[]) => {
     const modesToUse = (!Array.isArray(mode) ? [mode] : mode);
 
-    for(let _mode of modesToUse) {
-        if(!modes.hasOwnProperty(_mode)) {
-            throw new Error(`Invalid mode: ${_mode}`);
+    for(let currentMode of modesToUse) {
+        if(!modes.hasOwnProperty(currentMode)) {
+            throw new Error(`Invalid mode: ${currentMode}`);
         }
 
-        const applied = await applyMode({ data, width, height, effectPool, mode: _mode });
+        const applied = await applyMode({
+            data, width, height, effectPool, mode: currentMode
+        });
+        
         [data, width, height] = [applied.data, applied.width, applied.height];
     }
     
