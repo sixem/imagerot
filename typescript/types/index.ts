@@ -13,7 +13,7 @@ type IRotData = readonly [Uint8Array | null, number, number];
 
 // Staging params
 interface IRotParams {
-    data?: Buffer | File | IRotData | IRotItem;
+    data?: Buffer | File | IRotData | IRotItem | IRotData;
     url?: string;
 };
 
