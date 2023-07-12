@@ -9,7 +9,7 @@
 Contains details about the *common* methods shared between Node and the browser environment
 
 ## stage(`data`)
-A method that prepares the image data from a provided `File`, `URL`, `IRotData` or `IRotData`.
+A method that prepares the image data from a provided `File`, `URL`, `IRotItem` or `IRotData`.
 
 ### Returns
 - Type: `Promise<IRotItem>`
@@ -18,7 +18,7 @@ A method that prepares the image data from a provided `File`, `URL`, `IRotData` 
 ### Parameters
 | Name    | Type        |
 | ------- | ----------- |
-| data  | `{ data?: File \| IRotData \| IRotData, url?: string }` |
+| data  | `{ data?: File \| IRotItem \| IRotData, url?: string }` |
 
 ## useEffect(`data`, `effect`, `options?`)
 A method that applies one or more [effects](/EFFECTS.md) to the image data.
