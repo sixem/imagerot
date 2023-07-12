@@ -95,7 +95,7 @@ Returns a list of the exported modes
 
 ## listEffects()
 * #### Returns: `Array` => `string[]`
-Returns a list of the exported effects
+Returns a list of the exported [effects](/EFFECTS.md)
 
 # Targeted Methods (Node)
 Contains details about the methods exclusively exposed to the Node environment

@@ -1,7 +1,7 @@
 {
   "name": "imagerot",
   "version": "1.0.0",
-  "description": "",
+  "description": "A lightweight, cross-environment image library for applying unique effects via raw image buffers.",
   "scripts": {
     "build:ts": "cross-env ENVIRONMENT=node npx tsc",
     "build:webpack": "webpack --mode production",
@@ -9,7 +9,24 @@
     "test": "jest",
     "prepack": "npm run build"
   },
-  "keywords": [],
+  "keywords": [
+    "image",
+    "image-editing",
+    "image-processing",
+    "buffer",
+    "image-buffer",
+    "browser",
+    "client-side",
+    "canvas",
+    "typescript",
+    "image-manipulation",
+    "pixel-manipulation",
+    "rgba",
+    "web",
+    "web-development",
+    "web-image-processing",
+    "image-editor"
+  ],
   "author": "emy",
   "license": "GPL 3.0",
   "main": "./lib/imagerot/node/index.js",
