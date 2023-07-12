@@ -1175,7 +1175,7 @@ exports.bufferToBlob = bufferToBlob;
 
 /***/ }),
 
-/***/ 208:
+/***/ 111:
 /***/ (function(__unused_webpack_module, exports) {
 
 
@@ -1266,7 +1266,7 @@ Object.defineProperty(exports, "urlToBuffer", ({ enumerable: true, get: function
 const global_1 = __webpack_require__(951);
 const bufferToBitmap_1 = __webpack_require__(641);
 Object.defineProperty(exports, "bufferToBitmap", ({ enumerable: true, get: function () { return bufferToBitmap_1.bufferToBitmap; } }));
-const fileToBuffer_1 = __webpack_require__(208);
+const fileToBuffer_1 = __webpack_require__(111);
 Object.defineProperty(exports, "fileToBuffer", ({ enumerable: true, get: function () { return fileToBuffer_1.fileToBuffer; } }));
 const bufferToBlob_1 = __webpack_require__(433);
 Object.defineProperty(exports, "bufferToBlob", ({ enumerable: true, get: function () { return bufferToBlob_1.bufferToBlob; } }));
@@ -1464,37 +1464,6 @@ exports.applyMode = applyMode;
 
 /***/ }),
 
-/***/ 111:
-/***/ (function(__unused_webpack_module, exports) {
-
-
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.blobToBuffer = void 0;
-const blobToBuffer = (blob, width, height) => __awaiter(void 0, void 0, void 0, function* () {
-    const imageBitmap = yield createImageBitmap(blob);
-    const offscreenCanvas = new OffscreenCanvas(width, height);
-    const context = offscreenCanvas.getContext('2d');
-    if (!context) {
-        throw new Error('Failed to obtain context from `OffscreenCanvas`');
-    }
-    context.drawImage(imageBitmap, 0, 0);
-    const imageData = context.getImageData(0, 0, width, height);
-    return new Uint8Array(imageData.data.buffer);
-});
-exports.blobToBuffer = blobToBuffer;
-
-
-/***/ }),
-
 /***/ 951:
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
@@ -1514,7 +1483,6 @@ var __exportStar = (this && this.__exportStar) || function(m, exports) {
     for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-__exportStar(__webpack_require__(111), exports);
 __exportStar(__webpack_require__(236), exports);
 __exportStar(__webpack_require__(831), exports);
 __exportStar(__webpack_require__(221), exports);
