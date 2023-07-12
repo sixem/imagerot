@@ -1,4 +1,8 @@
-import { TEffectItem, TEffectExport, TEffectOptions } from '../../../types';
+import { TEffectItem, TEffectExport } from '../../../types';
+
+interface TEffectOptions {
+    intensity?: number;
+}
 
 const defaultIntensity = 0.5;
 
