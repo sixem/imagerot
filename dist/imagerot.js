@@ -165,13 +165,13 @@ const defaultBorderSize = 10;
 const defaultBorderColor = [0, 0, 0];
 const defaultBorderOpacity = 1;
 const global = ({ data, width, height }, options = null) => __awaiter(void 0, void 0, void 0, function* () {
-    const { borderSize = defaultBorderSize, borderColor = defaultBorderColor, borderOpacity = defaultBorderOpacity } = (options || {});
+    const { size = defaultBorderSize, color = defaultBorderColor, opacity = defaultBorderOpacity } = (options || {});
     for (let i = 0; i < data.length; i += 4) {
         let x = (i / 4) % width, y = Math.floor((i / 4) / width);
-        if (x < borderSize || x >= width - borderSize || y < borderSize || y >= height - borderSize) {
-            data[i] = data[i] * (1 - borderOpacity) + borderColor[0] * borderOpacity;
-            data[i + 1] = data[i + 1] * (1 - borderOpacity) + borderColor[1] * borderOpacity;
-            data[i + 2] = data[i + 2] * (1 - borderOpacity) + borderColor[2] * borderOpacity;
+        if (x < size || x >= width - size || y < size || y >= height - size) {
+            data[i] = data[i] * (1 - opacity) + color[0] * opacity;
+            data[i + 1] = data[i + 1] * (1 - opacity) + color[1] * opacity;
+            data[i + 2] = data[i + 2] * (1 - opacity) + color[2] * opacity;
         }
     }
     return data;
@@ -1541,14 +1541,21 @@ exports.useEffect = void 0;
 const applyEffect_1 = __webpack_require__(858);
 const useEffect = ({ data, width, height }, effectPool, effect, options) => __awaiter(void 0, void 0, void 0, function* () {
     const effectsToUse = (!Array.isArray(effect) ? [effect] : effect);
+    if (Array.isArray(options) && options.length !== effectsToUse.length) {
+        throw new Error('Invalid options length');
+    }
+    let i = 0;
     for (let currentEffect of effectsToUse) {
         if (!effectPool[currentEffect]) {
             throw new Error(`Invalid effect: ${currentEffect}`);
         }
         const applied = yield (0, applyEffect_1.applyEffect)({
-            data, width, height, effectPool, effect: currentEffect, options
+            data, width, height, effectPool,
+            effect: currentEffect,
+            options: Array.isArray(options) ? options[i] : options
         });
         [data, width, height] = [applied.data, applied.width, applied.height];
+        i++;
     }
     return { data, width, height };
 });
