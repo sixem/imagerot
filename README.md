@@ -1,5 +1,5 @@
 # ImageRot
-![cover](https://github.com/sixem/imagerot/assets/2825338/b1b3c703-6776-450c-89c2-5c8724e84d1b)
+![cover](https://github.com/sixem/imagerot/assets/2825338/9c1901d4-76e1-44d4-9053-aa3ac044acdc)
 
 A lightweight, cross-environment image library for applying unique effects via raw image buffers.
 
