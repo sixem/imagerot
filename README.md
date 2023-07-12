@@ -47,7 +47,7 @@ import imagerot from 'imagerot/browser';
 ## Example Usage
 The basic usage is the same in Node as it is in the browser.
 
-The general workflow consists of staging (preparing) an input, then modifying it by applying different modes or effects:
+The general workflow consists of staging (preparing) an input, then modifying it by applying different modes or [effects](/EFFECTS.md):
 ```js
 let staged = await imagerot.stage({
     // This can be a browser File, a pre-staged variable or even a Buffer returned from `fs`

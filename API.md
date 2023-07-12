@@ -1,6 +1,6 @@
 <h1 align="center">ImageRot API</h1>
 <br/>
-<p align="center">Details about the methods, effects, modes and properties provided by ImageRot</p>
+<p align="center">Details about the methods and properties provided by ImageRot</p>
 <br/>
 
 <!--- API BEGIN --->
@@ -21,7 +21,7 @@ A method that prepares the image data from a provided `File`, `URL`, `IRotData` 
 | data  | `{ data?: File \| IRotData \| IRotData, url?: string }` |
 
 ## useEffect(`data`, `effect`, `options?`)
-A method that applies one or more effects to the image data.
+A method that applies one or more [effects](/EFFECTS.md) to the image data.
 
 ### Returns
 - Type: `Promise<IRotItem>`
@@ -35,7 +35,7 @@ A method that applies one or more effects to the image data.
 | options | `TEffectOptions` | The options for the applied effect(s).     |
 
 ## useMode(`data`, `mode`)
-A method that applies one or more modes (effects) to the image data.
+A method that applies one or more modes to the image data.
 
 ### Returns
 - Type: `Promise<IRotItem>`
@@ -112,7 +112,7 @@ A method that creates an image file from a provided image data
 | ------- | ------------------------------ | -------------------------------------------------------|
 | data  | `IRotItem`                     | An object containing the image data, width, and height.|
 | path    | `string`                       | The path where the image should be saved.              |
-| config? | `TSaveBufferConf` \| `null`    | An optional configuration object for image creation.   |
+| config? | `object`    | An optional configuration object for image creation.   |
 
 The optional `config` parameter should be an object with the following properties:
 
@@ -210,14 +210,5 @@ The tuple has the following elements:
 | 0     | `Uint8Array` \| `null` | The raw image data in a typed array, or `null`. |
 | 1     | `number`         | The width of the image.                               |
 | 2     | `number`         | The height of the image.                              |
-
-## Type: `TSaveBufferConf`
-A type representing the configuration for saving a buffer.
-
-### Structure
-| Name | Type        | Description |
-| ---- | ----------- | ----------- |
-| mime | `string` | Optional. The MIME type of the image to save. Defaults to 'image/png'. |
-
 
 <!--- API END --->
