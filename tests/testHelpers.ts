@@ -60,7 +60,7 @@ export const verifyOperations = async (method: any, testImage: TTestImage, opera
 
 export const verifyArrayOfOperations = async (method: any, testImage: TTestImage, operations: string[]) => {
     if(operations.length > 0) {
-        const result = await method(testImage, operations);
+        const result = await method(testImage, operations, operations.map(() => ({})));
 
         // Check that data has changed
         expect(result.data).not.toEqual(testImage.data);
