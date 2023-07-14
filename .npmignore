@@ -1,5 +1,4 @@
 tests/
-dist/
 typescript/
 jest.config.js
 tsconfig.json

@@ -3,7 +3,7 @@
 
 A lightweight, cross-environment image library for applying unique effects via raw image buffers.
 
-Get started by reading the [API documentation](API.md).
+Get started by reading the [API documentation](https://github.com/sixem/imagerot/blob/main/API.md).
 
 Check out the [Web UI](https://five.sh/imagerot/) if you want to test out different effects or modes!
 
@@ -21,7 +21,7 @@ Check out the [Web UI](https://five.sh/imagerot/) if you want to test out differ
 * Built with an emphasis on lightness, the package requires zero dependencies in the browser environment.
 
 ## Packaged Build
-For use in the browser, the easiest way to get started is to use the pre-built source available in [dist](/dist/).
+For use in the browser, the easiest way to get started is to use the pre-built source available in [dist](https://github.com/sixem/imagerot/blob/main/dist/).
 
 Include the script in your HTML `<head/>` tag:
 ```html
@@ -47,7 +47,7 @@ import imagerot from 'imagerot/browser';
 ## Example Usage
 The basic usage is the same in Node as it is in the browser.
 
-The general workflow consists of staging (preparing) an input, then modifying it by applying different modes or [effects](/EFFECTS.md):
+The general workflow consists of staging (preparing) an input, then modifying it by applying different modes or [effects](https://github.com/sixem/imagerot/blob/main/EFFECTS.md):
 ```js
 let staged = await imagerot.stage({
     // This can be a browser File, a pre-staged variable or even a Buffer returned from `fs`
@@ -65,7 +65,7 @@ staged = await imagerot.useEffect(staged, 'pixelate', { intensity: 50 });
 ```
 The project exports some environment-specific variables for both browser and Node, but in this example we'll only cover the basic ones.
 
-For a more detailed overview of the available functions, refer to the [API documentation](API.md).
+For a more detailed overview of the available functions, refer to the [API documentation](https://github.com/sixem/imagerot/blob/main//API.md).
 
 To display the modified image in the Browser, one can use `bufferToBlob()`:
 ```js

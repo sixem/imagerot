@@ -21,7 +21,7 @@ A method that prepares the image data from a provided `File`, `URL`, `IRotItem` 
 | data  | `{ data?: File \| IRotItem \| IRotData, url?: string }` |
 
 ## useEffect(`data`, `effect`, `options?`)
-A method that applies one or more [effects](/EFFECTS.md) to the image data.
+A method that applies one or more [effects](https://github.com/sixem/imagerot/blob/main/EFFECTS.md) to the image data.
 
 ### Returns
 - Type: `Promise<IRotItem>`
@@ -95,7 +95,7 @@ Returns a list of the exported modes
 
 ## listEffects()
 * #### Returns: `Array` => `string[]`
-Returns a list of the exported [effects](/EFFECTS.md)
+Returns a list of the exported [effects](https://github.com/sixem/imagerot/blob/main/EFFECTS.md)
 
 # Targeted Methods (Node)
 Contains details about the methods exclusively exposed to the Node environment
