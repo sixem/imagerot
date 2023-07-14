@@ -9,7 +9,7 @@
 Contains details about the *common* methods shared between Node and the browser environment
 
 ## stage(`data`)
-A method that prepares the image data from a provided `File`, `URL`, `IRotItem` or `IRotData`.
+A method that prepares the image data from a provided `File`, URL, path, `IRotItem` or `IRotData`.
 
 ### Returns
 - Type: `Promise<IRotItem>`
@@ -18,7 +18,7 @@ A method that prepares the image data from a provided `File`, `URL`, `IRotItem` 
 ### Parameters
 | Name    | Type        |
 | ------- | ----------- |
-| data  | `{ data?: File \| IRotItem \| IRotData, url?: string }` |
+| data  | `{ data?: File \| Buffer \| IRotItem \| IRotData, url?: string, file?: string }` |
 
 ## useEffect(`data`, `effect`, `options?`)
 A method that applies one or more [effects](https://github.com/sixem/imagerot/blob/main/EFFECTS.md) to the image data.
