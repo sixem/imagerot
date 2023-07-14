@@ -15,6 +15,7 @@ type IRotData = readonly [Uint8Array | null, number, number];
 interface IRotParams {
     data?: Buffer | File | IRotData | IRotItem | IRotData;
     url?: string;
+    file?: string;
 };
 
 // Effect options

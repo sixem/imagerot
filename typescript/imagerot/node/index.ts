@@ -9,13 +9,18 @@ import * as modes from '../../modes';
 import { effectPool } from '../../effects/node';
 
 import sizeOf from 'image-size';
+import fs from 'fs/promises';
 import 'isomorphic-fetch';
 
 type TUseEffect = Parameters<typeof _useEffect>;
 type TUseMode = Parameters<typeof _useMode>;
 
-export const stage: TRotHandler = async ({ data, url }) => {
+export const stage: TRotHandler = async ({ data, url, file }) => {
     let [buffer, width, height]: IRotData = [null, 0, 0];
+
+    if(!data && file && typeof file === 'string') {
+        data = await fs.readFile(file);
+    }
 
     if(data) {
         if(data instanceof Buffer)
