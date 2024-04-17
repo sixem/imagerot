@@ -1,7 +1,8 @@
 # ImageRot
+
 ![cover](https://github.com/sixem/imagerot/assets/2825338/9c1901d4-76e1-44d4-9053-aa3ac044acdc)
 
-A lightweight, cross-environment image library for applying unique effects via raw image buffers.
+**ImageRot** (/ˈɪm.ɪdʒ.rɒt/ *noun*) is a lightweight, cross-environment image library for applying unique effects via raw image buffers.
 
 Get started by reading the [API documentation](https://github.com/sixem/imagerot/blob/main/API.md).
 
@@ -15,20 +16,20 @@ Check out the [Web UI](https://five.sh/imagerot/) if you want to test out differ
 * Allows for a custom build that only includes the desired effects or modes.
 
 ### Web Worker Support
-* Compatible to be run within web workers in the browser, enabling improved performance.
+* Compatible to be run within web workers in the browser, enabling smoother and improved performance.
 
-### Lightweight Design
-* Built with an emphasis on lightness, the package requires zero dependencies in the browser environment.
+### Lightweight
+* Built with an emphasis on lightness, the package requires *zero* dependencies in the browser environment.
 
-## Packaged Build
+## Browser usage
 For use in the browser, the easiest way to get started is to use the pre-built source available in [dist](https://github.com/sixem/imagerot/blob/main/dist/).
 
 Include the script in your HTML `<head/>` tag:
 ```html
-<script type="text/javascript" src="imagerot.min.js"></script>
+<script type="text/javascript" src="/dist/imagerot.min.js"></script>
 ```
 
-## Package Manager
+## Node usage
 To use it in Node, install it using NPM:
 ```bash
 npm install --save imagerot
@@ -39,7 +40,7 @@ Import the package:
 import imagerot from 'imagerot';
 ```
 
-If you are targeting the browser, you can use:
+If you are targeting the browser, you can instead use:
 ```js
 import imagerot from 'imagerot/browser';
 ```
