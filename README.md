@@ -119,7 +119,7 @@ Some example results of various modes applied to different images.
 <br/><br/>
 <img width="1500" height="400" alt="lacunae" src="https://github.com/user-attachments/assets/1649eb2a-a52c-4095-a82b-027a8e2b4794" />
 <br/><br/>
-<img width="1501" height="400" alt="acid" src="https://github.com/user-attachments/assets/ae422ba3-f7a6-418a-b194-3c15f18db3e1" />
+<img width="1501" height="400" alt="vaporwave" src="https://github.com/user-attachments/assets/ff1ee45f-dd30-4bf9-8065-1eb03c48cf30" />
 <br/><br/>
 <img width="1501" height="400" alt="nostalgia" src="https://github.com/user-attachments/assets/d753557a-f093-476f-a783-d8a0e54e2a2a" />
 
