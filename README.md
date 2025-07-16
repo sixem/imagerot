@@ -50,7 +50,7 @@ import imagerot from 'imagerot/browser';
 ## 🧪 Example Usage
 The basic usage is the same in Node as it is in the browser.
 
-The general workflow consists of staging (preparing) an input, then modifying it by applying different modes or [effects](https://github.com/sixem/imagerot/blob/main/EFFECTS.md):
+The general workflow consists of staging (preparing) an input, then modifying it by applying different modes or [effects](https://github.com/sixem/imagerot/blob/main/EFFECTS.md) to it:
 ```js
 let staged = await imagerot.stage({
     // This can be a browser File, a pre-staged variable or even a Buffer returned from `fs`
@@ -59,9 +59,12 @@ let staged = await imagerot.stage({
     //url: 'https://upload.wikimedia.org/wikipedia/commons/4/42/Shaqi_jrvej.jpg'
 });
 ```
+
+Generally, effects are smaller, more controllable effects that can be chained to create unique effects. Modes on the other hand are more complete overhauls of the image, often consisting of mulitple effects used, or even completely custom methods. These modes are meant to provide a more specific and unique result, while effects are more for smaller edits or for chaining them with each other to create unique effects.
+
 To modify the staged variable:
 ```js
-// Apply the `chimera` effect to the image
+// Apply the `chimera` mode to the image
 staged = await imagerot.useMode(staged, 'chimera');
 // Apply a `pixelate` effect to the image
 staged = await imagerot.useEffect(staged, 'pixelate', { intensity: 50 });
