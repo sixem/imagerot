@@ -1,6 +1,6 @@
 {
   "name": "imagerot",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A lightweight, cross-environment image library for applying unique effects via raw image buffers.",
   "scripts": {
     "build:ts": "cross-env ENVIRONMENT=node npx tsc",
