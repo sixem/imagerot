@@ -93,9 +93,9 @@ npm install
 npm run build
 ```
 
-The `canvas` package may require building from source. So, if you get any errors during `npm install` try installing these packages:
+The `canvas` package may require building from source. So, if you get any errors during `npm install` try installing these packages for your OS or distro:
 
-| OS / Distro | Installation                                                                                             |
+| OS/Distro | Installation                                                                                             |
 | ----------- | -------------------------------------------------------------------------------------------------------- |
 | **macOS**   | `brew install pkg-config cairo pango libpng jpeg giflib librsvg pixman python-setuptools`                |
 | **Ubuntu**  | `sudo apt-get install build-essential libcairo2-dev libpango1.0-dev libjpeg-dev libgif-dev librsvg2-dev` |
@@ -116,4 +116,4 @@ You can also adjust the exported effects and modes before building, if you want 
 ## Disclaimer
 This project has taken a lot of inspiration from [datamosh](https://github.com/Datamosh-js/datamosh), which is a similar project, so big thanks to the creator of that! 💖
 
-*ImageRot* was created to provide a way to easily manipulate buffers in the browser. It puts a big focus on general effects, image editing, and the combination of effects and modes to create unique results! ✨
+*ImageRot* was created to provide a way to easily manipulate buffers in the **browser**. It puts a big focus on general effects, image editing, and the combination of effects and modes to create unique results! ✨
