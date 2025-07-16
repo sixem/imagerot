@@ -102,8 +102,7 @@ The `canvas` package may require building from source. So, if you get any errors
 | **Fedora**  | `sudo yum install gcc-c++ cairo-devel pango-devel libjpeg-turbo-devel giflib-devel`                      |
 | **Solaris** | `pkgin install cairo pango pkg-config xproto renderproto kbproto xextproto`                              |
 | **OpenBSD** | `doas pkg_add cairo pango png jpeg giflib`                                                               |
-| **Windows** | See [wiki](https://github.com/Automattic/node-canvas/wiki/Installation:-Windows)    |
-| **Others**  | See [wiki](https://github.com/Automattic/node-canvas/wiki)                             |
+| **Others** | See [Wiki](https://github.com/Automattic/node-canvas/wiki/)                                               |
 
 Once built, it will create both a `lib` for Node-usage and a `dist` with the packaged browser-compatible files.
 
@@ -113,7 +112,22 @@ You can also adjust the exported effects and modes before building, if you want 
 * **Browser:** `npm run build:webpack`
 * **Node:** `npm run build:ts`
 
-## Disclaimer
+## 🔥 Example Results
+
+Some example results of various modes applied to different images.
+
+<img width="1501" height="400" alt="chimera" src="https://github.com/user-attachments/assets/1dcf52ca-1e2a-4e58-8413-9f745a614585" />
+
+<br/><br/>
+
+<img width="1500" height="400" alt="lacunae" src="https://github.com/user-attachments/assets/1649eb2a-a52c-4095-a82b-027a8e2b4794" />
+
+<br/><br/>
+
+<img width="1501" height="400" alt="acid" src="https://github.com/user-attachments/assets/ae422ba3-f7a6-418a-b194-3c15f18db3e1" />
+
+
+## ❕ Disclaimer
 This project has taken a lot of inspiration from [datamosh](https://github.com/Datamosh-js/datamosh), which is a similar project, so big thanks to the creator of that! 💖
 
 *ImageRot* was created to provide a way to easily manipulate buffers in the **browser**. It puts a big focus on general effects, image editing, and the combination of effects and modes to create unique results! ✨
