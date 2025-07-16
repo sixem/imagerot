@@ -87,15 +87,14 @@ await imagerot.saveBuffer(staged, output);
 You can build the project from source yourself:
 
 ```bash
-git clone https://github.com/sixem/imagerot/
-cd imagerot
+git clone https://github.com/sixem/imagerot/ && cd imagerot
 npm install
 npm run build
 ```
 
 The `canvas` package may require building from source. So, if you get any errors during `npm install` try installing these packages for your OS or distro:
 
-| OS/Distro | Installation                                                                                             |
+| OS/Distro | Installation                                                                                               |
 | ----------- | -------------------------------------------------------------------------------------------------------- |
 | **macOS**   | `brew install pkg-config cairo pango libpng jpeg giflib librsvg pixman python-setuptools`                |
 | **Ubuntu**  | `sudo apt-get install build-essential libcairo2-dev libpango1.0-dev libjpeg-dev libgif-dev librsvg2-dev` |
@@ -117,15 +116,12 @@ You can also adjust the exported effects and modes before building, if you want 
 Some example results of various modes applied to different images.
 
 <img width="1501" height="400" alt="chimera" src="https://github.com/user-attachments/assets/1dcf52ca-1e2a-4e58-8413-9f745a614585" />
-
 <br/><br/>
-
 <img width="1500" height="400" alt="lacunae" src="https://github.com/user-attachments/assets/1649eb2a-a52c-4095-a82b-027a8e2b4794" />
-
 <br/><br/>
-
 <img width="1501" height="400" alt="acid" src="https://github.com/user-attachments/assets/ae422ba3-f7a6-418a-b194-3c15f18db3e1" />
-
+<br/><br/>
+<img width="1501" height="400" alt="nostalgia" src="https://github.com/user-attachments/assets/d753557a-f093-476f-a783-d8a0e54e2a2a" />
 
 ## ❕ Disclaimer
 This project has taken a lot of inspiration from [datamosh](https://github.com/Datamosh-js/datamosh), which is a similar project, so big thanks to the creator of that! 💖
