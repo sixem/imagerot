@@ -10,5 +10,8 @@ export { hueShift } from './hueShift';
 export { scanlines } from './scanlines';
 export { solarize } from './solarize';
 export { chromaticAberration } from './chromaticAberration';
+export { anaglyph } from './anaglyph';
 export { borders } from './borders';
 export { heatmap } from './heatmap';
+export { waveDistort } from './waveDistort';
+export { fractalNoise } from './fractalNoise'

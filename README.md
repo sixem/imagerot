@@ -21,7 +21,6 @@ Check out the [Web UI](https://five.sh/imagerot/) if you want to test out differ
 
 ### Lightweight
 - Built with an emphasis on lightness, the package requires **zero** dependencies in the browser environment.
-- The minified build should be no more than 30 to 40 kilobytes in total.
 
 ## 🔸 Browser usage
 For use in the browser, the easiest way to get started is to use the pre-built source available in [dist](https://github.com/sixem/imagerot/blob/main/dist/).
@@ -60,7 +59,7 @@ let staged = await imagerot.stage({
 });
 ```
 
-Generally, effects are smaller, more controllable effects that can be chained to create unique effects. Modes on the other hand are more complete overhauls of the image, often consisting of mulitple effects used, or even completely custom methods. These modes are meant to provide a more specific and unique result, while effects are more for smaller edits or for chaining them with each other to create unique effects.
+Generally, effects are smaller, more controllable effects that can be chained to create unique effects. Modes on the other hand are more complete overhauls of the image, often consisting of multiple effects used, or even completely custom methods. These modes are meant to provide a more specific and unique result, while effects are more for smaller edits or for chaining them with each other to also create unique effects.
 
 To modify the staged variable:
 ```js
