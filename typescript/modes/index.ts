@@ -5,3 +5,4 @@ export { nostalgia } from './nostalgia';
 export { vaporwave } from './vaporwave';
 export { pixelsort } from './pixelsort';
 export { quadtree } from './quadtree';
+export { mirrorfold } from './mirrorfold';

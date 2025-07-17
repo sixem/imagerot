@@ -14,4 +14,5 @@ export { anaglyph } from './anaglyph';
 export { borders } from './borders';
 export { heatmap } from './heatmap';
 export { waveDistort } from './waveDistort';
-export { fractalNoise } from './fractalNoise'
+export { fractalNoise } from './fractalNoise';
+export { interferenceLines } from './interferenceLines';
