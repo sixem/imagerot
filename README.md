@@ -1,6 +1,6 @@
 # ImageRot
 
-![cover](https://github.com/sixem/imagerot/assets/2825338/9c1901d4-76e1-44d4-9053-aa3ac044acdc)
+<img width="2048" height="397" alt="image" src="https://github.com/user-attachments/assets/0b461657-25a9-4fda-a3ac-40cdfe969459" />
 
 **ImageRot** (/ˈɪm.ɪdʒ.rɒt/ *noun*) is a lightweight, cross-environment image library for applying unique effects via raw image buffers.
 
@@ -118,13 +118,13 @@ You can also adjust the exported effects and modes before building, if you want 
 
 Some example results of various modes applied to different images.
 
+<img width="1501" height="400" alt="image" src="https://github.com/user-attachments/assets/9125c7dc-50ce-4e91-9d86-9236665cc8fc" />
+<br/><br/>
 <img width="1501" height="400" alt="chimera" src="https://github.com/user-attachments/assets/1dcf52ca-1e2a-4e58-8413-9f745a614585" />
 <br/><br/>
 <img width="1500" height="400" alt="lacunae" src="https://github.com/user-attachments/assets/1649eb2a-a52c-4095-a82b-027a8e2b4794" />
 <br/><br/>
 <img width="1501" height="400" alt="vaporwave" src="https://github.com/user-attachments/assets/ff1ee45f-dd30-4bf9-8065-1eb03c48cf30" />
-<br/><br/>
-<img width="1501" height="400" alt="nostalgia" src="https://github.com/user-attachments/assets/d753557a-f093-476f-a783-d8a0e54e2a2a" />
 
 ## ❕ Disclaimer
 This project has taken a lot of inspiration from [datamosh](https://github.com/Datamosh-js/datamosh), which is a similar project, so big thanks to the creator of that! 💖
