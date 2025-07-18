@@ -1,6 +1,6 @@
 # ImageRot
 
-<img width="2250" height="500" alt="image" src="https://github.com/user-attachments/assets/b919bb29-09d3-4541-bc15-a8ad90f05a1a" />
+<img width="2200" height="468" alt="image" src="https://github.com/user-attachments/assets/1dd1c3f6-ae76-4a0f-9f4d-d32004de3262" />
 
 **ImageRot** (/ˈɪm.ɪdʒ.rɒt/ *noun*) is a lightweight, efficient, cross-environment image library. It lets you apply unique effects and modes to images by manipulating raw image buffers.
 
