@@ -1,10 +1,12 @@
 # ImageRot
 
-<img width="2048" height="397" alt="image" src="https://github.com/user-attachments/assets/0b461657-25a9-4fda-a3ac-40cdfe969459" />
+<img width="2250" height="500" alt="image" src="https://github.com/user-attachments/assets/b919bb29-09d3-4541-bc15-a8ad90f05a1a" />
 
-**ImageRot** (/ˈɪm.ɪdʒ.rɒt/ *noun*) is a lightweight, efficient, cross-environment image library for applying unique effects to images.
+**ImageRot** (/ˈɪm.ɪdʒ.rɒt/ *noun*) is a lightweight, efficient, cross-environment image library. It lets you apply unique effects and modes to images by manipulating raw image buffers.
 
-You can get started by reading the [API documentation](https://github.com/sixem/imagerot/blob/main/API.md).
+This library works in both the browser and node.
+
+To get started, you can read the [API documentation](https://github.com/sixem/imagerot/blob/main/API.md).
 
 Or, you can also check out the [Web UI](https://five.sh/imagerot/) if you want to test out different effects or modes!
 
@@ -116,7 +118,7 @@ You can also adjust the exported effects and modes before building, if you want 
 | Enviornment | Command                 |
 | ----------- | ----------------------- |
 | **Browser** | `npm run build:webpack` |
-| **Node**  | `npm run build:ts`      |
+| **Node**    | `npm run build:ts`      |
 
 ## 🔥 Example Results
 
@@ -134,7 +136,7 @@ Some example results of various modes applied to different images.
 
 Want to contribute? Take a look at how the current effects and modes work, and feel free to submit your own ideas. Effects are smaller building blocks and easier to add, while modes are more complex and should feel a bit more unique to get accepted.
 
-Whether it's code or just suggestions, all contributions are welcome!
+Whether it's code or just suggestions and feedback, all contributions are welcome!
 
 ## 📣 Disclaimers
 If you enjoy this project, I'd really appreciate it if you'd leave a star! ⭐
