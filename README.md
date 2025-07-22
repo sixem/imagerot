@@ -134,7 +134,9 @@ Some example results of various modes applied to different images.
 
 ## 💡 Contributing
 
-Want to contribute? Take a look at how the current effects and modes work, and feel free to submit your own ideas. Effects are smaller building blocks and easier to add, while modes are more complex and should feel a bit more unique to get accepted.
+Want to contribute?
+
+Familiarize yourself with the current effects, modes, and how they work, and feel free to submit your own creations. Effects are smaller building blocks and easier to add, while modes are more complex and should feel a bit more unique to get accepted.
 
 Whether it's code or just suggestions and feedback, all contributions are welcome!
 
