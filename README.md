@@ -8,7 +8,7 @@ This library works in both the browser and node.
 
 To get started, you can read the [API documentation](https://github.com/sixem/imagerot/blob/main/API.md).
 
-Or, you can also check out the [Web UI](https://five.sh/imagerot/) if you want to test out different effects or modes!
+You can also check out the [ImageRot UI](https://five.sh/imagerot/) if you want to test out different effects or modes!
 
 ## 💫 Features
 ### Cross-Environment Consistency
@@ -17,7 +17,6 @@ Or, you can also check out the [Web UI](https://five.sh/imagerot/) if you want t
 
 ### Configurable Build
 - Allows for a custom build that only includes the desired effects or modes.
-- A minified, custom build can be as low as 30 kilobytes. Pick what you want of effects and modes, and compile it yourself!
 
 ### Web Worker Support
 - Compatible to be run within web workers in the browser, enabling smoother and _heavily_ improved performance.
@@ -90,10 +89,11 @@ await imagerot.saveBuffer(staged, output);
 ```
 
 ## 🛠️ Building
-You can build the project from source yourself. Clone it in any way you prefer, install the packages and run the build:
+You can build the project from source yourself. Clone it, install the packages, and run the build:
 
 ```bash
-git clone https://github.com/sixem/imagerot/ && cd imagerot
+git clone https://github.com/sixem/imagerot/
+cd imagerot
 npm install
 npm run build
 ```
