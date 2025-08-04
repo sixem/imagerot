@@ -1,6 +1,6 @@
 {
   "name": "imagerot",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "A lightweight, cross-environment image library for applying unique effects via raw image buffers.",
   "scripts": {
     "build:ts": "cross-env ENVIRONMENT=node npx tsc",
@@ -25,7 +25,9 @@
     "web",
     "web-development",
     "web-image-processing",
-    "image-editor"
+    "image-editor",
+    "glitch-art",
+    "pixel-sort"
   ],
   "author": "emy",
   "license": "GPL 3.0",
