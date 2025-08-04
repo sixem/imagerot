@@ -1,10 +1,10 @@
 import { TEffectItem, TEffectExport } from '../../../types';
 
 interface TEffectOptions {
-    lineThickness?: number; // Default: 2 (pixels per scanline)
+    lineThickness?: number;         // Default: 2 (pixels per scanline)
     interferenceIntensity?: number; // Default: 0.3 (fraction of rows with shifts or glitches)
-    noiseIntensity?: number; // Default: 0.1 (strength of random noise added)
-    colorBleed?: number; // Default: 0.2 (amount of RGB shift for VHS chromatic effect)
+    noiseIntensity?: number;        // Default: 0.1 (strength of random noise added)
+    colorBleed?: number;            // Default: 0.2 (amount of RGB shift for VHS chromatic effect)
 }
 
 const global: TEffectItem = async ({ data, width, height }, options = null) => {
@@ -17,9 +17,9 @@ const global: TEffectItem = async ({ data, width, height }, options = null) => {
 
     const tempData = new Uint8Array(data); // Copy for shifts and bleeding
 
-    // Apply scanlines: Darken every other set of rows
+    // Apply scanlines by darkening every other set of rows
     for (let y = 0; y < height; y++) {
-        const isScanline = (y % (lineThickness * 2)) < lineThickness; // Alternate bands
+        const isScanline   = (y % (lineThickness * 2)) < lineThickness; // Alternate bands
         const darkenFactor = isScanline ? 0.85 : 1.0; // Slight darken for VHS lines
 
         for (let x = 0; x < width; x++) {
@@ -30,7 +30,7 @@ const global: TEffectItem = async ({ data, width, height }, options = null) => {
             data[idx + 1] = Math.floor(tempData[idx + 1] * darkenFactor);
             data[idx + 2] = Math.floor(tempData[idx + 2] * darkenFactor);
 
-            // Add noise: Random perturbation
+            // Add noise (random perturbation)
             if (Math.random() < noiseIntensity) {
                 const noise = Math.floor(Math.random() * 50 - 25); // -25 to 25 shift
                 data[idx] = Math.max(0, Math.min(255, data[idx] + noise));
@@ -39,7 +39,7 @@ const global: TEffectItem = async ({ data, width, height }, options = null) => {
             }
         }
 
-        // Interference: Random row shifts for glitchy tracking
+        // Random row shifts for glitchy tracking (interference)
         if (Math.random() < interferenceIntensity) {
             const shift = Math.floor(Math.random() * 10 - 5); // -5 to 5 pixel horizontal shift
             for (let x = 0; x < width; x++) {
@@ -54,7 +54,7 @@ const global: TEffectItem = async ({ data, width, height }, options = null) => {
         }
     }
 
-    // Add color bleed: Slight RGB channel shifts for VHS chromatic aberration
+    // Add color bleed (slight RGB channel shifts for VHS chromatic aberration)
     for (let y = 0; y < height; y++) {
         for (let x = 0; x < width; x++) {
             const idx = (y * width + x) * 4;
@@ -66,7 +66,7 @@ const global: TEffectItem = async ({ data, width, height }, options = null) => {
             const rSrcX = Math.max(0, Math.min(width - 1, x + redShift));
             const bSrcX = Math.max(0, Math.min(width - 1, x + blueShift));
 
-            data[idx] = tempData[(y * width + rSrcX) * 4]; // Red from shifted
+            data[idx] = tempData[(y * width + rSrcX) * 4];         // Red  from shifted
             data[idx + 2] = tempData[(y * width + bSrcX) * 4 + 2]; // Blue from shifted
         }
     }

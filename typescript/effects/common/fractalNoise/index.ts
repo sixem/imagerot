@@ -84,7 +84,7 @@ const global: TEffectItem = async ({ data, width, height }, options = null) => {
     const scale       = config.scale ?? 4;
     const intensity   = config.intensity ?? 0.5;
 
-    const maxValue = (1 - Math.pow(persistence, octaves)) / (1 - persistence); // Normalize factor for [-1,1] range
+    const maxValue = (1 - Math.pow(persistence, octaves)) / (1 - persistence);
 
     for (let y = 0; y < height; y++) {
         for (let x = 0; x < width; x++) {
@@ -98,15 +98,14 @@ const global: TEffectItem = async ({ data, width, height }, options = null) => {
                 freq  *= 2;
             }
 
-            noise /= maxValue; // Normalize to approx [-1,1]
+            noise /= maxValue;
 
             const idx   = (y * width + x) * 4;
-            const shift = noise * intensity * 128; // Scale to [-128,128] for overlay
+            const shift = noise * intensity * 128;
 
-            data[idx] = Math.max(0, Math.min(255, data[idx] + shift));     // R
-            data[idx + 1] = Math.max(0, Math.min(255, data[idx + 1] + shift)); // G
-            data[idx + 2] = Math.max(0, Math.min(255, data[idx + 2] + shift)); // B
-            // Alpha unchanged
+            data[idx] = Math.max(0, Math.min(255, data[idx] + shift)); 
+            data[idx + 1] = Math.max(0, Math.min(255, data[idx + 1] + shift));
+            data[idx + 2] = Math.max(0, Math.min(255, data[idx + 2] + shift));
         }
     }
 
